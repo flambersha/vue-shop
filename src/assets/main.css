@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+.dark{
+    --bg:rgb(43, 42, 32);
+    --main-text:#fff;
+    --secondary-text:#facc15;
+    --secondary-blurred-text:#e0b50d;
+    --rounded-elements:#8f8585;
+    --color-border:#facc15;
+    --card-bg:rgba(216, 214, 152, 0.2);
+    --card-hover:rgba(216, 214, 152, 0.3);
+    --input-text:#d1d5dc;
+    --button-bg:#facc15;
+    --c-name:#bca859;
+    --link-text:#ca8a04;
+}
+.light{
+    --bg:#fef9c280;
+    --input-text:#101828;
+    --c-name:#6a7282;
+    --button-bg:#000;
+    --main-text:#000;
+    --secondary-text:#6a7282;
+    --secondary-blurred-text:#374151;
+    --rounded-elements:#e5e7eb;
+    --color-border:#d1d5dc;
+    --card-bg:rgba(254, 249, 194, 0.4);
+    --card-hover:#fef9c2;
+    --link-text:#926504;
+}

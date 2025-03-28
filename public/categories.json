@@ -1,0 +1,60 @@
+{
+    "categories": {
+      "products": {
+        "women's": [
+          "t-shirts",
+          "dresses",
+          "jeans",
+          "skirts",
+          "jackets"
+        ],
+        "men's": [
+          "t-shirts",
+          "shirts",
+          "jeans",
+          "jackets",
+          "shoes"
+        ],
+        "kids": [
+          "t-shirts",
+          "shorts",
+          "dresses",
+          "shoes",
+          "jackets"
+        ],
+        "accessories": [
+          "hats",
+          "bags",
+          "belts",
+          "sunglasses",
+          "watches"
+        ]
+      },
+      "price": [
+        "$0-$20",
+        "$20-$50",
+        "$50-$100",
+        "$100-$200",
+        "$200+"
+      ],
+      "size": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL",
+        "XXL"
+      ],
+      "color": [
+        "red",
+        "blue",
+        "green",
+        "black",
+        "white",
+        "yellow",
+        "pink",
+        "gray"
+      ]
+    }
+  }
+  
