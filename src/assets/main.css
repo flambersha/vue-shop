@@ -13,6 +13,7 @@
     --button-bg:#facc15;
     --c-name:#bca859;
     --link-text:#ca8a04;
+    --cart-bg:rgb(43, 42, 32);
 }
 .light{
     --bg:#fef9c280;
@@ -23,8 +24,9 @@
     --secondary-text:#6a7282;
     --secondary-blurred-text:#374151;
     --rounded-elements:#e5e7eb;
-    --color-border:#d1d5dc;
+    --color-border:#adafb3;
     --card-bg:rgba(254, 249, 194, 0.4);
     --card-hover:#fef9c2;
     --link-text:#926504;
+    --cart-bg:#fff;
 }

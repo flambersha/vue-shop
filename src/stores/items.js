@@ -67,6 +67,7 @@ export const useItemStore = defineStore("items", () => {
        wishlist.value = wishlist.value.filter(i => i !== id)
     else wishlist.value.push(id);
 }
+
   const categories = computed(() => { //only for front end
     const categoriesMap = new Map();
     const result = {};
@@ -163,6 +164,6 @@ const sortedCategories = computed(() => {
     addToCart,
     cartValues,
     hiddenCategories,
-    sortedCategories
+    sortedCategories,
   };
 });

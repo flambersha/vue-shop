@@ -7,7 +7,7 @@ import { ref } from 'vue';
 </script>
 
 <template>
-    <div @click="orderDetails = !orderDetails" class="flex w-full justify-between items-center text-center border-1 border-(--color-border) rounded-md p-4 text-[12px] md:text-[14px] cursor-pointer mt-2 gap-2">
+    <div @click="orderDetails = !orderDetails" class="flex w-full justify-between items-center text-center border-1 border-(--color-border) rounded-md p-4 text-[13px] md:text-[15px] cursor-pointer mt-2 gap-2">
                 <div class="w-8">
                 {{ props.number }}
                 </div>
@@ -27,17 +27,19 @@ import { ref } from 'vue';
                     <i :class=" !orderDetails ? `fa-solid fa-chevron-down` :`fa-solid fa-chevron-up` "></i>
                 </div>
     </div>
-    <div v-show="orderDetails" class="flex justify-between items-center p-4 text-[12px] md:text-[14px] mt-3">
+    <div v-show="orderDetails" class="flex flex-wrap justify-between items-center p-4 text-[13px] md:text-[15px] mt-3 gap-8">
             <div class="flex gap-5 items-center">
                 <img :src="props.img" class="w-18 h-22" :alt="'photo of order:' + props.desc">
             <div class="flex flex-col gap-4  ">
                 <p>{{ props.desc }}</p> 
-           <p>{{ props.quantity }} items, ${{ props.amount }} each</p>
+           
            <p>ordered on <span class="font-semibold">{{ props.date }}</span></p>
             </div>
             </div>
-            
+
+        <p>{{ props.quantity }} × ${{ props.amount }} </p>
            <p>total of ${{ props.quantity * props.amount }}</p>
+           <p class="font-bold">status: {{ props.status }}</p>
            
         
         <div class="flex flex-col gap-2"><button v-if="props.status !== 'canceled'" class="px-3 py-1 rounded-md cursor-pointer bg-red-300 text-black">Cancel</button>

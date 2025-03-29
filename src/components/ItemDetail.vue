@@ -43,11 +43,11 @@ const displayableCategories = computed(() => {
        <!-- <div class="bg-green-100 border-1 border-green-500 text-green-700 px-4 py-3 w-64 rounded-xl" role="alert">
   <p class="font-bold">Wishlist modified</p>
 </div> -->
-    <div class="flex w-full pt-[115px]">
-      <div class="w-1/2 bg-yellow-100 ">
-        <img :src="foundItem.img[1]" :alt="foundItem.name" class="h-80 w-80">
+    <div class="flex flex-col md:flex-row gap-5 w-full pt-[115px]">
+      <div class="w-full md:w-1/2 bg-yellow-100 flex items-center justify-center">
+        <img :src="foundItem.img[0]" :alt="foundItem.name" class="h-80 w-70">
       </div>
-      <div class="w-1/2 flex flex-col gap-5 pl-15">
+      <div class="w-full md:w-1/2 flex flex-col gap-5">
         <div class="flex justify-between"><h1 class="font-bold text-xl uppercase">{{ foundItem.name }}</h1>
             <button @click="itemsStore.addWish(foundItem.id)" class="rounded-md hover:bg-gray-100 cursor-pointer w-7 h-7 flex items-center justify-center">
             <i :class="itemsStore.wishlist.includes(foundItem.id) ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-gray-700'"></i>

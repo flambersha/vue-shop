@@ -1,5 +1,5 @@
 <script setup>
-import Cart from '@/components/Cart.vue';
+
 </script>
 <template>
     <section class="flex flex-col md:flex-row gap-3 min-h-[clamp(600px,100vh,900px)] items-center text-center md:text-left pt-[115px] md:pt-0">
@@ -31,7 +31,4 @@ import Cart from '@/components/Cart.vue';
       <div class="p-10 col-span-5 row-span-4 md:col-span-3 md:row-span-3 bg-yellow-200/50 flex justify-center items-center rounded-2xl">text6</div>
     </div>
   </section>
-    <div>
-        <Cart></Cart>
-    </div>
 </template>
