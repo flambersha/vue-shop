@@ -10,6 +10,7 @@ import NotFoundView from '@/views/NotFoundView.vue'
 import SignUp from '@/components/User/SignUp.vue'
 import SignIn from '@/components/User/SignIn.vue'
 import EmailPwd from '@/components/User/Email-Pwd.vue'
+import Checkout from '@/components/Checkout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,6 +54,11 @@ const router = createRouter({
         { path: 'orders', name:'orders', component: UserOrders },
         { path: 'favourite', name:'favourite', component: UserFavourite },
       ],
+    },
+    {
+      path: '/checkout/:id',
+      name: 'checkout',
+      component: Checkout
     },
     { path: '/:pathMatch(.*)*', component: NotFoundView },
   ],

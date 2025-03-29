@@ -13,16 +13,17 @@ import OrderTableRow from '../OrderTableRow.vue';
             <!-- <button type="submit" class="cursor-pointer text-[13px] md:text-[16px] bg-black text-white rounded-[7px] px-2 py-1 md:px-5 md:py-2 text-center">Search</button> -->
             </div>
         </form>
-        <div class="md:h-120 md:overflow-y-auto">
-            <OrderTableRow v-for="(order, index) in orderStore.filteredOrders" role="list"
+        <div class="md:h-120 md:overflow-y-auto" role="list">
+            <OrderTableRow v-for="(order, index) in orderStore.filteredOrders"
     :key="index"
     :number="index + 1"
-    :desc="order.desc"
-    :date="order.date"
+    :desc="order.item.name"
+    :date="order.timestamp"
     :status="order.status"
-    :amount="order.amount"
-    :img="order.img"
+    :amount="order.item.price"
+    :img="order.item.img"
     :quantity="order.quantity"
+    :options="order.options"
     />
         </div>
     </div>

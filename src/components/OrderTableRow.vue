@@ -1,7 +1,7 @@
 <script setup>
 import StatusSpan from './StatusSpan.vue';
 import { ref } from 'vue';
-    const props = defineProps(['number','desc', 'date', 'status', 'amount', 'quantity', 'img']);
+    const props = defineProps(['number','desc', 'date', 'status', 'amount', 'quantity', 'img', 'options']);
 
     const orderDetails = ref(false);
 </script>

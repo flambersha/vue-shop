@@ -1,11 +1,14 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { useItemStore } from '@/stores/items';
+import { useOrderStore } from '@/stores/orders';
 import { ref, computed, onMounted } from 'vue';
+import BuyNowModal from './BuyNowModal.vue';
 const itemsStore = useItemStore();
+const orderStore = useOrderStore();
 const route = useRoute();
 const router = useRouter();
-const foundItem = itemsStore.products.find(item => item.id == route.params.id)
+const foundItem = itemsStore.products.find(item => item.id == route.params.id);
 if (!foundItem) {
   router.replace("/not-found");
 }
@@ -37,6 +40,29 @@ const displayableCategories = computed(() => {
   return result;
 })
 
+const showBuyNowModal = ref(false)
+
+// This function is called when the "Buy Now" button is clicked
+function handleBuyNowClick() {
+  showBuyNowModal.value = true
+}
+
+// This function is called when the user confirms the order in the modal
+function handleConfirmOrder(orderDetails) {
+  const { item, options, quantity } = orderDetails
+  const orderId = orderStore.createOrder(item, options, quantity)
+  
+  // Close modal
+  showBuyNowModal.value = false
+  
+  // Navigate to checkout
+  router.push({ name: 'checkout', params: { id: orderId } })
+}
+
+// This function is called when the user closes the modal
+function handleCloseModal() {
+  showBuyNowModal.value = false
+}
 
 </script>
 <template>
@@ -48,9 +74,10 @@ const displayableCategories = computed(() => {
         <img :src="foundItem.img[0]" :alt="foundItem.name" class="h-80 w-70">
       </div>
       <div class="w-full md:w-1/2 flex flex-col gap-5">
-        <div class="flex justify-between"><h1 class="font-bold text-xl uppercase">{{ foundItem.name }}</h1>
-            <button @click="itemsStore.addWish(foundItem.id)" class="rounded-md hover:bg-gray-100 cursor-pointer w-7 h-7 flex items-center justify-center">
-            <i :class="itemsStore.wishlist.includes(foundItem.id) ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-gray-700'"></i>
+        <div class="flex justify-between">
+            <h1 class="font-bold text-xl uppercase">{{ foundItem.name }}</h1>
+            <button @click="itemsStore.addWish(foundItem.id)" class="rounded-md hover:bg-(--card-hover) cursor-pointer w-8 h-8 flex items-center justify-center">
+            <i :class="itemsStore.wishlist.includes(foundItem.id) ? 'fa-solid fa-heart text-red-500 text-lg' : 'fa-regular fa-heart text-(--main-text) text-lg'"></i>
         </button>
       </div>
         
@@ -83,9 +110,17 @@ const displayableCategories = computed(() => {
   </div>
 </div>
 <div class="flex h-10 gap-3">
-  <button @click="itemsStore.addToCart(foundItem, selectedOptions)" class= "border-2 border-(--button-bg) bg-black text-white shadow-lg rounded-[7px] px-7 text-center w-48 cursor-pointer">Add To Cart</button>
-  <button class="bg-white text-black shadow-lg rounded-[7px] text-center w-32 cursor-pointer border-2 border-(--button-bg)">Buy now</button>
+  <button @click="itemsStore.addToCart(foundItem, selectedOptions)" class= "border-1 border-(--button-bg) bg-black text-white shadow-lg rounded-[7px] px-7 text-center w-48 cursor-pointer">Add To Cart</button>
+  <button @click="handleBuyNowClick" class="bg-white text-black shadow-lg rounded-[7px] text-center w-32 cursor-pointer border-2 border-(--button-bg)">Buy now</button>
 </div>
+
+<BuyNowModal
+    :showModal="showBuyNowModal"
+    :item="foundItem"
+    :options="selectedOptions"
+    @close="handleCloseModal"
+    @confirm="handleConfirmOrder"
+  />
 
       </div>
     </div>

@@ -1,5 +1,6 @@
 <script setup>
 import { useItemStore } from '@/stores/items';
+import { useOrderStore } from '@/stores/orders';
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -7,6 +8,7 @@ const isOpen=ref(false);
 const router = useRouter();
 const currentTheme = ref('light');
 const itemsStore = useItemStore();
+const orderStore = useOrderStore();
 const searchQuery = ref("");
 
 const isMenuOpen=ref(false);
@@ -143,7 +145,7 @@ onBeforeUnmount(() => {
     <div class="text-(--main-text) bg-(--cart-bg) w-full max-w-md h-full overflow-y-auto p-6 shadow-lg">
       <div class="flex justify-between items-center mb-4">
         <h1 class="font-bold text-[35px]">Cart</h1>
-        <button @click="toggleCart" class="text-gray-500 hover:text-black cursor-pointer">
+        <button @click="toggleCart" class="text-gray-400 hover:text-(--main-text) cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -161,8 +163,8 @@ onBeforeUnmount(() => {
           <img :src="cartItem[0].img[0]" class="h-10 w-10" :alt="'Photo of ' + cartItem[0].name"/>
           <div>{{ cartItem[0].name }}</div>
           <div>${{ cartItem[0].price }}</div>
-          <input type="number" v-model="quantity" min="1" class="rounded-md w-15 outline-yellow-400 border-2 border-yellow-400 px-2">
-          <button class="bg-black text-white border-2 border-amber-400 rounded-[7px] px-3 py-1 text-center cursor-pointer">Buy</button>
+          <input type="number" v-model="quantity" min="1" class="rounded-md w-15 outline-yellow-400 border-1 border-yellow-400 px-2 py-1">
+          <button @click="orderStore.createOrder(cartItem)" class="bg-black text-white border-1 border-amber-400 rounded-[7px] px-2 py-1 text-center cursor-pointer">Buy</button>
         </div>
       </div>
     </div>
