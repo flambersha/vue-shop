@@ -59,8 +59,8 @@ function handleConfirmOrder(orderDetails) {
   router.push({ name: 'checkout', params: { id: orderId } })
 }
 
-// This function is called when the user closes the modal
-function handleCloseModal() {
+
+function closeModal() {
   showBuyNowModal.value = false
 }
 
@@ -120,7 +120,7 @@ function handleCloseModal() {
     :showModal="showBuyNowModal"
     :item="foundItem"
     :options="selectedOptions"
-    @close="handleCloseModal"
+    @close="closeModal"
     @confirm="handleConfirmOrder"
   />
 

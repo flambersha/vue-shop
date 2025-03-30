@@ -113,7 +113,7 @@ export const useItemStore = defineStore("items", () => {
     return [...filteredItems.value].sort((a,b)=>
       sortPrice.value === 'ascending' ? a.price - b.price : b.price - a.price);
   })
-  //cart component
+  //cart
   const cartValues = ref([]);
   const addToCart = (foundItem, options) =>{
     cartValues.value.push([foundItem, options]);
@@ -123,16 +123,6 @@ export const useItemStore = defineStore("items", () => {
 const hiddenCategories = ref(['women', 'men', 'kids']);
 
 //sorting categories based on their importance (if specified)
-// const sortedCategories = computed(()=>{
-//   if(!hiddenCategories.value)
-//     return categories.value;
-//   return Object.keys(categories.value).sort((a, b) =>{
-//       const isAHidden = hiddenCategories.value.includes(a);
-//       const isBHidden = hiddenCategories.value.includes(b);
-
-//       return isAHidden ? -1 : 1;
-//     })
-// })
 const sortedCategories = computed(() => {
   if (!hiddenCategories.value) return categories.value;
 
