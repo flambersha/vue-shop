@@ -14,10 +14,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="pt-[115px]">
+  <div class="pt-[115px] text-(--main-text)">
     <div v-if="order">
     <h1 class="font-bold text-[35px]">Checkout</h1>
-    <div>Order ID: {{ order.id }}</div>
+    <div class="flex flex-col gap-6">Order ID: {{ order.id }}
+      <p>Payment processing</p>
+      <RouterLink :to="`/catalog`" class="text-(--link-text)">Go back to catalog</RouterLink>
+    </div>
     
   </div>
   <div v-else>
