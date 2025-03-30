@@ -3,6 +3,8 @@ import { defineStore } from "pinia";
 
 export const useOrderStore = defineStore("orders", () => {
   const orders = ref([]);
+
+  //filtering orders
   const orderFilter = ref("");
   const filteredOrders = computed(() => {
     if (!orderFilter.value) return orders.value;
@@ -10,7 +12,7 @@ export const useOrderStore = defineStore("orders", () => {
       (order) => {
         const input = orderFilter.value.toLowerCase();
         return(
-            order.desc.toLowerCase().includes(input) || order.status.toLowerCase().includes(input) || order.date.toLowerCase().includes(input)
+            order.item.name.toLowerCase().includes(input) || order.status.toLowerCase().includes(input) || order.timestamp.toLowerCase().includes(input)
         );
       }
     );
@@ -24,7 +26,7 @@ export const useOrderStore = defineStore("orders", () => {
       item: {...item},
       options: {...options},
       quantity: quantity,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date().toUTCString().split(' ').slice(0, 4).join(" "),
       status: 'created'
     });
   orders.value.push(newOrder);

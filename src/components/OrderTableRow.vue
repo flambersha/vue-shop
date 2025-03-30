@@ -11,6 +11,7 @@ import { ref } from 'vue';
                 <div class="w-8">
                 {{ props.number }}
                 </div>
+                <img :src="props.img[0]" class="w-12 h-12" :alt="'photo of order:' + props.desc">
                 <div class="w-23 md:w-40 truncate">
                    {{  props.desc }}
                 </div>
@@ -29,11 +30,19 @@ import { ref } from 'vue';
     </div>
     <div v-show="orderDetails" class="flex flex-wrap justify-between items-center p-4 text-[13px] md:text-[15px] mt-3 gap-8">
             <div class="flex gap-5 items-center">
-                <img :src="props.img" class="w-18 h-22" :alt="'photo of order:' + props.desc">
-            <div class="flex flex-col gap-4  ">
-                <p>{{ props.desc }}</p> 
+                <img :src="props.img[0]" class="w-18 h-22" :alt="'photo of order:' + props.desc">
+            <div class="flex flex-col gap-1">
+                <p class="font-bold">{{ props.desc }}</p> 
            
            <p>ordered on <span class="font-semibold">{{ props.date }}</span></p>
+            </div>
+            <div>
+                <p class="text-sm font-medium pb-1">Selected options:</p>
+                <ul>
+                    <li v-for="(value, key) in props.options" :key="key">
+                        <span class="italic">{{ key }}:</span> {{ key === 'color' ? value.split(':')[0] : value }}
+                    </li>
+                </ul>
             </div>
             </div>
 
