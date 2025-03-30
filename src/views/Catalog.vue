@@ -51,8 +51,8 @@ const removeFilter = (filter)=>{
                     <label for="">Sort by:</label>
                     <select class="bg-(--rounded-elements) outline-0 rounded-[15px] px-2 py-1 text-[11px] md:text-[14px]" name="" v-model="itemStore.sortPrice">
                         <option value="" selected>No sort</option>
-                        <option value="ascending">Cheapest first</option>
-                        <option value="descending">Expensive first</option>
+                        <option value="ascending">Low To High</option>
+                        <option value="descending">High to Low</option>
                     </select>
               
                 </div>
@@ -68,13 +68,16 @@ const removeFilter = (filter)=>{
     <div v-for="item in itemStore.sortedItems" :key="item.id" class="flex flex-col relative w-[230px] p-3 gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
         <RouterLink :to="`/item/${item.id}`" class="flex flex-col relative gap-2">
             <img class="rounded-[18px] h-50 w-fit mx-auto mb-3" :src="item.img[0]" :alt="item.name">
-            <div class="flex justify-between items-center">
+            <div :class="item.available === 0 ? 'text-(--stock)' : 'text-(--main-text)'" class="flex justify-between items-center">
                 <p class="font-bold text-[16px] uppercase">{{ item.name }}</p>
                 <p class="text-sm font-semibold">${{ item.price }}</p>
             </div>
+            <div v-if="item.available !== 0">
             <div v-if="item.categories.color" class="flex flex-row gap-2">
-                <span v-for="color in item.categories.color" class="border-1 border-(--color-border) h-4 w-4 rounded-full" :style="{ backgroundColor: color.split(':')[1] }"></span>
+                    <span v-for="color in item.categories.color" class="border-1 border-(--color-border) h-4 w-4 rounded-full" :style="{ backgroundColor: color.split(':')[1] }"></span>
+                </div>
             </div>
+            <div v-else class="text-xs text-(--stock)">Out Of Stock</div>
         </RouterLink>
         <button @click="itemStore.addWish(item.id)" class="rounded-md hover:bg-gray-100 absolute right-3 top-3 cursor-pointer w-6 h-6 flex items-center justify-center">
             <i :class="itemStore.wishlist.includes(item.id) ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-gray-700'"></i>

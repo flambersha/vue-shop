@@ -8,7 +8,7 @@ export const useItemStore = defineStore("items", () => {
       name: "Miami Jacket",
       desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel magna at neque dapibus eleifend. Donec pulvinar congue molestie. Nunc eget nibh id nulla consequat malesuada. Sed massa dolor, tincidunt porttitor risus ornare, vestibulum tempor magna. Donec nec leo orci. Sed suscipit tincidunt aliquam. Donec sed cursus mi, interdum commodo lacus. Aenean dui nunc, condimentum tristique porta nec, tristique in ex. Aenean tristique a nibh nec ultrices. Nullam convallis eros a orci viverra vulputate.',
       img: ['https://tommy-europe.scene7.com/is/image/TommyEurope/DW0DW18610_THA_main?$b2c_updp_m_mainImage_1920$', 'https://hips.hearstapps.com/hmg-prod/images/gh-best-online-clothing-stores-65a6c3cb930ac.png?crop=0.489xw:0.978xh;0.256xw,0.00962xh&resize=640:*'],
-      quantity: 4,
+      available: 4,
       price: 23.99,
       categories: {
         women: ["jackets"],
@@ -21,7 +21,7 @@ export const useItemStore = defineStore("items", () => {
       name: "Icy T-shirt",
       desc:'loremp ipsum dolor sit amet',
       img:'',
-      quantity: 19,
+      available: 19,
       price: 15.99,
       categories: {
         men: ["t-shirts"],
@@ -35,7 +35,7 @@ export const useItemStore = defineStore("items", () => {
       name: "Black Pants",
       desc:'loremp ipsum dolor sit amet',
       img:'',
-      quantity: 4,
+      available: 4,
       price: 123.99,
       categories: {
         men: ["pants"],
@@ -49,7 +49,7 @@ export const useItemStore = defineStore("items", () => {
       name: "White Top",
       desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel magna at neque dapibus eleifend. Donec pulvinar congue molestie. Nunc eget nibh id nulla consequat malesuada. Sed massa dolor, tincidunt porttitor risus ornare, vestibulum tempor magna. Donec nec leo orci. Sed suscipit tincidunt aliquam. Donec sed cursus mi, interdum commodo lacus. Aenean dui nunc, condimentum tristique porta nec, tristique in ex. Aenean tristique a nibh nec ultrices. Nullam convallis eros a orci viverra vulputate.',
       img:'',
-      quantity: 4,
+      available: 0,
       price: 52.93,
       categories: {
         women: ["tops"],

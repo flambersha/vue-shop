@@ -14,6 +14,7 @@
     --c-name:#bca859;
     --link-text:#ca8a04;
     --cart-bg:rgb(43, 42, 32);
+    --stock:#d1d5dc;
 }
 .light{
     --bg:#fef9c280;
@@ -29,4 +30,5 @@
     --card-hover:#fef9c2;
     --link-text:#926504;
     --cart-bg:#fff;
+    --stock:#6a7282;
 }

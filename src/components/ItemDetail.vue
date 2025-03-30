@@ -109,9 +109,11 @@ function handleCloseModal() {
     </button>
   </div>
 </div>
-<div class="flex h-10 gap-3">
-  <button @click="itemsStore.addToCart(foundItem, selectedOptions)" class= "border-1 border-(--button-bg) bg-black text-white shadow-lg rounded-[7px] px-7 text-center w-48 cursor-pointer">Add To Cart</button>
-  <button @click="handleBuyNowClick" class="bg-white text-black shadow-lg rounded-[7px] text-center w-32 cursor-pointer border-2 border-(--button-bg)">Buy now</button>
+<div class="flex h-10 gap-3 items-center">
+  <button v-if="foundItem.available > 0" @click="itemsStore.addToCart(foundItem, selectedOptions)" class= "py-2 border-1 border-(--button-bg) bg-black text-white shadow-lg rounded-[7px] px-7 text-center w-48 cursor-pointer">Add To Cart</button>
+  <button v-if="foundItem.available > 0" @click="handleBuyNowClick" class="py-2 bg-white text-black shadow-lg rounded-[7px] text-center w-32 cursor-pointer border-2 border-(--button-bg)">Buy now</button>
+  <p class="text-sm" v-if="foundItem.available > 0">{{ foundItem.available }} items in stock</p>
+  <p class="text-sm" v-else>No items available for now</p>
 </div>
 
 <BuyNowModal

@@ -1,5 +1,5 @@
 <script setup>
-  import { ref} from 'vue';
+  import { ref } from 'vue';
   
   const props = defineProps({
     showModal: {
@@ -139,7 +139,7 @@
             @click="confirmOrder" 
             class="cursor-pointer flex-1 bg-white text-gray-700 rounded-md py-2 text-sm font-medium shadow-sm focus:outline-none"
           >
-            Proceed to Checkout
+            Confirm
           </button>
           <button 
             @click="closeModal" 
