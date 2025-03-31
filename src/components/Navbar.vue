@@ -55,6 +55,13 @@ const toggleCart = () => {
   isCartOpen.value = !isCartOpen.value;
 };
 
+function buyFromCart(item, options, quantity) {
+  const orderId = orderStore.createOrder(item, options, quantity)
+  isCartOpen.value = false;
+  router.push({ name: 'checkout', params: { id: orderId } });
+  itemsStore.removeFromCart(item.id);
+}
+
 const handleClickOutside = (event) => {
   if (isMenuOpen.value && menuDropdown.value && !menuDropdown.value.contains(event.target) && event.target.id !== 'menu-button') {
     isMenuOpen.value = false;
@@ -141,6 +148,8 @@ onBeforeUnmount(() => {
          </div>
     </nav>
 </header>
+
+<!-- !CART -->
 <div v-show="isCartOpen" class="fixed inset-0 bg-black/30 z-40 flex justify-end ">
     <div class="text-(--main-text) bg-(--cart-bg) w-full max-w-md h-full overflow-y-auto p-6 shadow-lg">
       <div class="flex justify-between items-center mb-4">
@@ -157,15 +166,54 @@ onBeforeUnmount(() => {
       </div>
       
       <div v-else>
-        <div v-for="(cartItem, index) in itemsStore.cartValues" :key="index" 
-             class="flex w-full justify-between items-center text-center border-2 border-gray-200 rounded-md p-4 text-[12px] md:text-[14px] cursor-pointer mb-2 gap-2">
-          <div class="font-bold"> {{ index + 1 }} </div>
+        <!-- <div v-for="(cartItem, index) in itemsStore.cartValues" :key="index">
+          <RouterLink :to="`/item/${cartItem[0].id}`" @click="toggleCart" class="flex flex-wrap w-full justify-between items-center text-center border-2 border-gray-200 rounded-md p-4 text-[12px] md:text-[14px] cursor-pointer mb-2 gap-2">
+             <div> {{ index + 1 }} </div>
           <img :src="cartItem[0].img[0]" class="h-10 w-10" :alt="'Photo of ' + cartItem[0].name"/>
-          <div>{{ cartItem[0].name }}</div>
+          <div class="font-bold">{{ cartItem[0].name }}</div>
           <div>${{ cartItem[0].price }}</div>
-          <input type="number" v-model="quantity" min="1" class="rounded-md w-15 outline-yellow-400 border-1 border-yellow-400 px-2 py-1">
-          <button @click="orderStore.createOrder(cartItem)" class="bg-black text-white border-1 border-amber-400 rounded-[7px] px-2 py-1 text-center cursor-pointer">Buy</button>
+          
+          <input type="number" min="1" v-model="cartItem[2]" :max="cartItem[0].available" class="rounded-md w-15 outline-yellow-400 border-1 border-yellow-400 px-2 py-1">
+          <button @click="buyFromCart(cartItem[0], cartItem[1], cartItem[2])" class="bg-black text-white border-1 border-amber-400 rounded-[7px] px-2 py-1 text-center cursor-pointer">Buy</button>
+          <div v-if="cartItem[1]" class="flex gap-3 ml-5">
+            <div class="px-2 rounded-xl bg-amber-100" v-for="(value, option) in cartItem[1]">{{ option }} {{ option === 'color' ? value.split(':')[0] : value }}</div>
+          </div>
+        </RouterLink>
+        </div> -->
+        <div v-for="(cartItem, index) in itemsStore.cartValues" :key="index" 
+     class="flex flex-wrap w-full justify-between items-center text-center border-2 border-gray-200 rounded-md p-4 text-[12px] md:text-[14px] cursor-pointer mb-2 gap-2">
+
+    <div @click="toggleCart">
+        <RouterLink :to="`/item/${cartItem[0].id}`" class="flex gap-2 items-center">
+            <div> {{ index + 1 }} </div>
+            <img :src="cartItem[0].img[0]" class="h-10 w-10" :alt="'Photo of ' + cartItem[0].name"/>
+            <div class="font-bold">{{ cartItem[0].name }}</div>
+        </RouterLink>
+    </div>
+
+    <div>${{ cartItem[0].price }}</div>
+
+    <input type="number" min="1" v-model="cartItem[2]" :max="cartItem[0].available" 
+           class="rounded-md w-15 outline-yellow-400 border-1 border-yellow-400 px-2 py-1">
+
+    <!-- Move "Buy" button outside RouterLink -->
+    <button @click="buyFromCart(cartItem[0], cartItem[1], cartItem[2])" 
+            class="bg-black text-white border-1 border-amber-400 rounded-[7px] px-2 py-1 text-center cursor-pointer">
+        Buy
+    </button>
+    <button @click="itemsStore.removeFromCart(cartItem[0].id)" 
+            class="bg-red-300 text-black rounded-[7px] px-2 py-1 text-center cursor-pointer">
+        <i class="fa-solid fa-trash"></i>
+    </button>
+
+    <div v-if="cartItem[1]" class="flex gap-3 ml-5">
+        <div class="px-2 rounded-xl bg-amber-100" v-for="(value, option) in cartItem[1]">
+            {{ option }} {{ option === 'color' ? value.split(':')[0] : value }}
         </div>
+    </div>
+
+</div>
+
       </div>
     </div>
   </div>

@@ -22,7 +22,7 @@ import { ref } from 'vue';
                    <StatusSpan :status="props.status"/>
                 </div>
                 <div class="hidden md:block">
-                    ${{ props.amount }}
+                    ${{ props.amount * props.quantity }}
                 </div>
                 <div>
                     <i :class=" !orderDetails ? `fa-solid fa-chevron-down` :`fa-solid fa-chevron-up` "></i>

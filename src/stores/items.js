@@ -115,8 +115,13 @@ export const useItemStore = defineStore("items", () => {
   })
   //cart
   const cartValues = ref([]);
-  const addToCart = (foundItem, options) =>{
-    cartValues.value.push([foundItem, options]);
+  const addToCart = (foundItem, options, quantity) =>{
+    cartValues.value.push([foundItem, options, quantity]);
+  }
+  const removeFromCart = (id) => {
+    const index = cartValues.value.findIndex(f=>f[0].id === id);
+    if (index > -1)
+      cartValues.value.splice(index, 1);
   }
 
   //admin decides which items are hidden
@@ -155,5 +160,6 @@ const sortedCategories = computed(() => {
     cartValues,
     hiddenCategories,
     sortedCategories,
+    removeFromCart
   };
 });

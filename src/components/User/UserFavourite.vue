@@ -17,7 +17,7 @@ wishes.value = itemStore.products.filter(product => itemStore.wishlist.includes(
         </form> -->
         
         <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5 items-start justify-center">
-        <div v-for="wish in wishes" :key="wish.id" class="flex flex-col relative w-[230px] p-3 gap-3 rounded-[18px] bg-yellow-100/40 hover:bg-yellow-100 transition duration-300">
+        <div v-for="wish in wishes" :key="wish.id" class="flex flex-col relative w-[230px] p-3 gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
             <RouterLink :to="`/item/${wish.id}`" class="flex flex-col relative gap-2">
             <img class="rounded-[18px] h-50 w-fit mx-auto mb-3" :src="wish.img[0]" :alt="wish.name">
             <div class="flex justify-between items-center">
