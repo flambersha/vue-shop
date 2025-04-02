@@ -15,6 +15,7 @@
     --link-text:#ca8a04;
     --cart-bg:rgb(43, 42, 32);
     --stock:#d1d5dc;
+    --bento-bg:#676664;
 }
 .light{
     --bg:#fef9c280;
@@ -31,4 +32,5 @@
     --link-text:#926504;
     --cart-bg:#fff;
     --stock:#6a7282;
+    --bento-bg:#f2cf8a;
 }

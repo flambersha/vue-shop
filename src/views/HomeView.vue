@@ -10,6 +10,7 @@
       <p class="text-(--link-text)">
         Go and choose your best look<br />
         People illustrations by <a class="underline underline-(--link-text)" href="https://storyset.com/people">Storyset</a>
+        Online illustrations by <a href="https://storyset.com/online">Storyset</a>
       </p>
       <RouterLink to="/catalog" class="text-[16px] border-2 border-(--button-bg) bg-black text-white rounded-[7px] px-4 py-2 md:px-5 md:py-3 text-center">
         Explore now
@@ -20,15 +21,19 @@
     </div>
   </section>
 
-  <section class="w-full min-h-[clamp(600px,100vh,900px)] flex justify-center items-center p-6 pt-16">
+  <section class="w-full min-h-[clamp(600px,100vh,900px)] flex justify-center items-center pt-16">
     <div class="grid grid-cols-10 grid-rows-4 gap-4 w-full font-bold">
-      <div class="p-10 col-span-5 row-span-4 md:col-span-5 md:row-span-3 bg-yellow-200/50 flex justify-center items-center rounded-2xl">text1</div>
-      <div class="p-10 col-span-5 row-span-4 md:col-span-2 md:row-span-1 bg-yellow-200/50 flex justify-center items-center rounded-2xl">text2</div>
-      <div class="p-10 col-span-5 row-span-4 md:col-span-3 md:row-span-1 bg-yellow-200/50 flex justify-center items-center rounded-2xl text-3xl">Regular discounts</div>
-      <div class="p-10 col-span-5 row-span-4 md:col-span-5 md:row-span-1 bg-yellow-200/50 flex justify-center items-center rounded-2xl">text3</div>
-      <div class="p-10 col-span-5 row-span-4 md:col-span-5 md:row-span-4 bg-yellow-200/50 flex justify-center items-center rounded-2xl">text4</div>
-      <div class="p-10 col-span-5 row-span-4 md:col-span-2 md:row-span-3 bg-yellow-200/50 flex justify-center items-center rounded-2xl">text5</div>
-      <div class="p-10 col-span-5 row-span-4 md:col-span-3 md:row-span-3 bg-yellow-200/50 flex justify-center items-center rounded-2xl">text6</div>
+      <div class="col-span-10 row-span-4 md:col-span-5 md:row-span-3 bg-(--bento-bg) flex justify-center items-center rounded-2xl">
+        <img src="/Ecommerce checkout laptop-bro.svg" alt="picture" aria-hidden="true" >
+      </div>
+      <div class="p-10 col-span-10 row-span-4 md:col-span-2 md:row-span-1 bg-(--bento-bg) flex justify-center items-center rounded-2xl text-3xl text-center">Top quality</div>
+      <div class="p-10 col-span-10 row-span-4 md:col-span-3 md:row-span-1 bg-(--bento-bg) flex justify-center items-center rounded-2xl text-3xl text-center">500+ items</div>
+      <div class="p-10 col-span-10 row-span-4 md:col-span-5 md:row-span-1 bg-(--bento-bg) flex justify-center items-center rounded-2xl text-3xl text-center">Reuse & recycle</div>
+      <div class="col-span-10 row-span-4 md:col-span-5 md:row-span-4 bg-(--bento-bg) flex justify-center items-center rounded-2xl">
+        <img src="/Discount-pana.svg" alt="picture" aria-hidden="true" class="w-90">
+      </div>
+      <div class="p-10 col-span-10 row-span-4 md:col-span-2 md:row-span-3 bg-(--bento-bg) flex justify-center items-center rounded-2xl text-3xl text-center"><p>97% <span class="text-sm"><br/>of items is recycled</span></p></div>
+      <div class="p-10 col-span-10 row-span-4 md:col-span-3 md:row-span-3 bg-(--bento-bg) flex justify-center items-center rounded-2xl text-3xl text-center">Regular discounts</div>
     </div>
   </section>
 </template>
