@@ -13,7 +13,6 @@ const removeFilter = (filter)=>{
     if (index > -1)
     itemStore.selectedFilters.splice(index,1);
 }
-
 </script>
 <template>
     <div class="flex gap-4 pt-[115px]">
@@ -66,20 +65,25 @@ const removeFilter = (filter)=>{
             </div>
             <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5">
     <div v-for="item in itemStore.sortedItems" :key="item.id" class="flex flex-col relative w-[230px] p-3 gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
+        <div v-if="item.discount && item.discount > 0" class="absolute bg-red-600 text-white px-2 py-1 z-1 -left-3 top-3 text-sm rounded-2xl">-{{item.discount}}%</div>
         <RouterLink :to="`/item/${item.id}`" class="flex flex-col relative gap-2">
             <img class="rounded-[18px] h-50 w-fit mx-auto mb-3" :src="item.img[0]" :alt="item.name">
-            <div :class="item.available === 0 ? 'text-(--stock)' : 'text-(--main-text)'" class="flex justify-between items-center">
+            <div class="flex justify-between">
+            <div :class="item.available === 0 ? 'text-(--stock)' : 'text-(--main-text)'" class="flex flex-col gap-1">
                 <p class="font-bold text-[16px] uppercase">{{ item.name }}</p>
-                <div class="flex flex-col gap-1 items-start justify-items-start">
-                    <p v-if="item.price < 100" class="text-sm font-semibold">${{ item.price }}</p>
-                    <p :class="item.price < 100 ? 'line-through text-xs text-(--stock)' : 'text-sm font-semibold'">${{ item.price }}</p></div>
-            </div>
-            <div v-if="item.available !== 0">
+                <div v-if="item.available !== 0">
             <div v-if="item.categories.color" class="flex flex-row gap-2">
                     <span v-for="color in item.categories.color" class="border-1 border-(--color-border) h-4 w-4 rounded-full" :style="{ backgroundColor: color.split(':')[1] }"></span>
                 </div>
             </div>
             <div v-else class="text-xs text-(--stock)">Out Of Stock</div>
+            </div>
+            <div class="flex flex-col justify-between">
+                    <p v-if="item.discount && item.discount > 0" :class="item.available !== 0 ? 'text-(--main-text)':'text-(--stock)'" class="text-sm font-semibold inline-flex">${{ itemStore.getNewPrice(item.price, item.discount) }}</p>
+                    <p class="inline-flex" :class="item.discount && item.discount > 0 ? 'line-through text-xs text-(--stock)' : 'text-sm font-semibold'">${{ item.price }}</p>
+                </div>
+            </div>
+            
         </RouterLink>
         <button @click="itemStore.addWish(item.id)" class="rounded-md hover:bg-gray-100 absolute right-3 top-3 cursor-pointer w-6 h-6 flex items-center justify-center">
             <i :class="itemStore.wishlist.includes(item.id) ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-gray-700'"></i>

@@ -10,6 +10,7 @@ export const useItemStore = defineStore("items", () => {
       img: ['https://tommy-europe.scene7.com/is/image/TommyEurope/DW0DW18610_THA_main?$b2c_updp_m_mainImage_1920$', 'https://hips.hearstapps.com/hmg-prod/images/gh-best-online-clothing-stores-65a6c3cb930ac.png?crop=0.489xw:0.978xh;0.256xw,0.00962xh&resize=640:*'],
       available: 4,
       price: 23.99,
+      discount:0,
       categories: {
         women: ["jackets"],
         color:  ["white:#fff","black:#000", "pink:#ff99ff"],
@@ -23,6 +24,7 @@ export const useItemStore = defineStore("items", () => {
       img:'',
       available: 19,
       price: 15.99,
+      discount:0,
       categories: {
         men: ["t-shirts"],
         color: ["white:#fff","black:#000"],
@@ -37,6 +39,7 @@ export const useItemStore = defineStore("items", () => {
       img:'',
       available: 4,
       price: 123.99,
+      discount:20,
       categories: {
         men: ["pants"],
         color: ["black:#000"],
@@ -51,6 +54,7 @@ export const useItemStore = defineStore("items", () => {
       img:'',
       available: 0,
       price: 52.93,
+      discount:0,
       categories: {
         women: ["tops"],
         color: ["white:#fff"],
@@ -143,6 +147,12 @@ const sortedCategories = computed(() => {
   );
 });
 
+//discount counter function
+const getNewPrice = (oldPrice, discount) =>{
+  let discountValue = 1 - discount/100
+  return (oldPrice * discountValue).toFixed(2);
+}
+
 //navbar search field
 
 
@@ -160,6 +170,7 @@ const sortedCategories = computed(() => {
     cartValues,
     hiddenCategories,
     sortedCategories,
-    removeFromCart
+    removeFromCart,
+    getNewPrice
   };
 });
