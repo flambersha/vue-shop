@@ -82,9 +82,9 @@ onBeforeUnmount(() => {
         <div class="flex items-center">
     <!-- Visible on all screens except md -->
     <div class="hidden md:hidden lg:flex lg:gap-8 lg:items-center text-[15px]">
-        <RouterLink :to="`/catalog`" class="hover:text-yellow-500 transition duration-200" active-class="border-b-2 border-b-yellow-400">Catalog</RouterLink>
-        <RouterLink :to="`/about`" class="hover:text-yellow-500 transition duration-200" active-class="border-b-2 border-b-yellow-400">About</RouterLink>
-        <RouterLink :to="`/contacts`" class="hover:text-yellow-500 transition duration-200" active-class="border-b-2 border-b-yellow-400">Contacts</RouterLink>
+        <RouterLink :to="`/catalog`" class="hover:text-yellow-500 transition duration-200 border-b-2 border-b-transparent" active-class="border-b-2 border-b-yellow-400">Catalog</RouterLink>
+        <RouterLink :to="`/about`" class="hover:text-yellow-500 transition duration-200 border-b-2 border-b-transparent" active-class="border-b-2 border-b-yellow-400">About</RouterLink>
+        <RouterLink :to="`/contacts`" class="hover:text-yellow-500 transition duration-200 border-b-2 border-b-transparent" active-class="border-b-2 border-b-yellow-400">Contacts</RouterLink>
     </div>
     
     <!-- dropdown visible only on md screens -->

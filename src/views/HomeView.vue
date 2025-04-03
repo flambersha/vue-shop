@@ -28,7 +28,7 @@
       </div>
       <div class="p-10 col-span-10 row-span-4 md:col-span-2 md:row-span-1 bg-(--bento-bg) flex justify-center items-center rounded-2xl text-3xl text-center">Top quality</div>
       <div class="p-10 col-span-10 row-span-4 md:col-span-3 md:row-span-1 bg-(--bento-bg) flex justify-center items-center rounded-2xl text-3xl text-center">500+ items</div>
-      <div class="p-10 col-span-10 row-span-4 md:col-span-5 md:row-span-1 bg-(--bento-bg) flex justify-center items-center rounded-2xl text-3xl text-center">Reuse & recycle</div>
+      <div class="p-10 col-span-10 row-span-4 md:col-span-5 md:row-span-1 bg-(--bento-bg) flex justify-center items-center rounded-2xl text-3xl text-center">Reuse & recycle with us</div>
       <div class="col-span-10 row-span-4 md:col-span-5 md:row-span-4 bg-(--bento-bg) flex justify-center items-center rounded-2xl">
         <img src="/Discount-pana.svg" alt="picture" aria-hidden="true" class="w-90">
       </div>

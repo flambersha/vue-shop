@@ -70,7 +70,9 @@ const removeFilter = (filter)=>{
             <img class="rounded-[18px] h-50 w-fit mx-auto mb-3" :src="item.img[0]" :alt="item.name">
             <div :class="item.available === 0 ? 'text-(--stock)' : 'text-(--main-text)'" class="flex justify-between items-center">
                 <p class="font-bold text-[16px] uppercase">{{ item.name }}</p>
-                <p class="text-sm font-semibold">${{ item.price }}</p>
+                <div class="flex flex-col gap-1 items-start justify-items-start">
+                    <p v-if="item.price < 100" class="text-sm font-semibold">${{ item.price }}</p>
+                    <p :class="item.price < 100 ? 'line-through text-xs text-(--stock)' : 'text-sm font-semibold'">${{ item.price }}</p></div>
             </div>
             <div v-if="item.available !== 0">
             <div v-if="item.categories.color" class="flex flex-row gap-2">
