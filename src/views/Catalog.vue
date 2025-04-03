@@ -42,7 +42,7 @@ const removeFilter = (filter)=>{
                 :category="category"
                 :items="values"/>
         </div>
-        <div class="flex flex-col w-full pt-4 pl-4">
+        <div class="flex flex-col w-full md:pt-4 md:pl-4">
             <div v-show="searchTerm">lalalalal</div>
             <div class="flex flex-col gap-3 md:flex-row justify-between">
                 <p>Showing <strong>{{itemStore.filteredItems.length}}</strong> results of <strong>{{itemStore.products.length}}</strong></p>
@@ -63,13 +63,13 @@ const removeFilter = (filter)=>{
                 </div>
                 <div class="text-[14px] text-(--secondary-blurred-text)" v-else>none</div>
             </div>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5">
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5 place-items-center">
     <div v-for="item in itemStore.sortedItems" :key="item.id" class="flex flex-col relative w-[230px] p-3 gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
-        <div v-if="item.discount && item.discount > 0" class="absolute bg-red-600 text-white px-2 py-1 z-1 -left-3 top-3 text-sm rounded-2xl">-{{item.discount}}%</div>
+        <div v-if="item.discount && item.discount > 0" class="absolute font-semibold bg-red-600 text-white px-2 py-1 z-1 -left-3 top-5 text-sm rounded-2xl">-{{item.discount}}%</div>
         <RouterLink :to="`/item/${item.id}`" class="flex flex-col relative gap-2">
             <img class="rounded-[18px] h-50 w-fit mx-auto mb-3" :src="item.img[0]" :alt="item.name">
             <div class="flex justify-between">
-            <div :class="item.available === 0 ? 'text-(--stock)' : 'text-(--main-text)'" class="flex flex-col gap-1">
+            <div :class="item.available === 0 ? 'text-(--stock)' : 'text-(--main-text)'" class="flex flex-col gap-2">
                 <p class="font-bold text-[16px] uppercase">{{ item.name }}</p>
                 <div v-if="item.available !== 0">
             <div v-if="item.categories.color" class="flex flex-row gap-2">
@@ -78,9 +78,12 @@ const removeFilter = (filter)=>{
             </div>
             <div v-else class="text-xs text-(--stock)">Out Of Stock</div>
             </div>
-            <div class="flex flex-col justify-between">
-                    <p v-if="item.discount && item.discount > 0" :class="item.available !== 0 ? 'text-(--main-text)':'text-(--stock)'" class="text-sm font-semibold inline-flex">${{ itemStore.getNewPrice(item.price, item.discount) }}</p>
-                    <p class="inline-flex" :class="item.discount && item.discount > 0 ? 'line-through text-xs text-(--stock)' : 'text-sm font-semibold'">${{ item.price }}</p>
+            <div class="flex flex-col justify-between" v-if="item.available !== 0">
+                    <p v-if="item.discount && item.discount > 0" class="text-sm font-semibold">${{ itemStore.getNewPrice(item.price, item.discount) }}</p>
+                    <p :class="item.discount && item.discount > 0 ? 'line-through text-xs text-(--stock)' : 'text-sm font-semibold'">${{ item.price }}</p>
+                </div>
+                <div v-else>
+                    <p class="text-(--stock) text-sm font-semibold">${{ item.price }}</p>
                 </div>
             </div>
             

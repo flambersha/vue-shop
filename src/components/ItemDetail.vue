@@ -70,13 +70,17 @@ function closeModal() {
       </div>
       <div class="w-full md:w-1/2 flex flex-col gap-5">
         <div class="flex justify-between">
-            <h1 class="font-bold text-xl uppercase">{{ foundItem.name }}</h1>
+            <h1 class="font-bold uppercase text-2xl">{{ foundItem.name }}</h1>
             <button @click="itemsStore.addWish(foundItem.id)" class="rounded-md hover:bg-(--card-hover) cursor-pointer w-8 h-8 flex items-center justify-center">
             <i :class="itemsStore.wishlist.includes(foundItem.id) ? 'fa-solid fa-heart text-red-500 text-lg' : 'fa-regular fa-heart text-(--main-text) text-lg'"></i>
         </button>
       </div>
-        
-        <p class="font-semibold">${{ foundItem.price }}</p>
+        <div class="flex gap-3">
+          <p v-if="foundItem.discount && foundItem.discount > 0" class="font-bold text-xl">${{ itemsStore.getNewPrice(foundItem.price, foundItem.discount) }}</p>
+          <p :class="{'line-through text-xs': foundItem.discount && foundItem.discount > 0}" class="font-semibold">${{ foundItem.price }}</p>
+          <div v-if="foundItem.discount" class="ml-2 bg-red-600 px-2 py-1 text-white font-semibold rounded-2xl">-{{ foundItem.discount }}%</div>
+        </div>
+       
         <div>
           <h3 class="font-semibold">Description</h3>
         <p class="text-[15px]">{{ foundItem.desc }}</p>
