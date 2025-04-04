@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useItemStore } from '@/stores/items';
 import { useRoute } from 'vue-router';
 import CategoryCheckBox from '@/components/CategoryCheckBox.vue';
@@ -9,14 +9,28 @@ const route = useRoute();
 const searchTerm = ref(route.query.result || null);
 
 const removeFilter = (filter)=>{
-    const index = itemStore.selectedFilters.findIndex(f => f.category == filter.category && f.item == filter.item);
+    const index = itemStore.selectedFilters.findIndex(f => f.split(':')[0] == filter.split(":")[0] && f.split(':')[1] == filter.split(":")[1]);
+    
     if (index > -1)
     itemStore.selectedFilters.splice(index,1);
 }
+
+const itemsPerLoad = 8;
+const visibleItems = ref(itemsPerLoad); // Number of items displayed
+
+// Get visible items based on count
+const displayedItems = computed(() => itemStore.sortedItems.slice(0, visibleItems.value));
+
+const loadMoreItems = () => {
+  if (visibleItems.value < itemStore.sortedItems.length) {
+    visibleItems.value += itemsPerLoad;
+  }
+};
+
 </script>
 <template>
     <div class="flex gap-4 pt-[115px]">
-        <div class="hidden lg:flex lg:flex-col border-1 border-gray-200 shadow-sm rounded-md p-4 w-67 gap-3 h-[600px] overflow-y-auto">
+        <div class="hidden lg:flex lg:flex-col border-1 border-gray-200 shadow-sm rounded-md p-4 w-67 gap-3 ">
             <p class="font-semibold text-[18px] tracking-wide">Filter items</p>
             <!-- <div class="flex flex-col items-center justify-center border-1 border-yellow-500 gap-3 text-[12px]">
                 <div class="w-fit">
@@ -45,7 +59,7 @@ const removeFilter = (filter)=>{
         <div class="flex flex-col w-full md:pt-4 md:pl-4">
             <div v-show="searchTerm">lalalalal</div>
             <div class="flex flex-col gap-3 md:flex-row justify-between">
-                <p>Showing <strong>{{itemStore.filteredItems.length}}</strong> results of <strong>{{itemStore.products.length}}</strong></p>
+                <p>Showing <strong>{{displayedItems.length}}</strong> results of <strong>{{itemStore.products.length}}</strong></p>
                 <div class="flex gap-3 items-center">
                     <label for="">Sort by:</label>
                     <select class="bg-(--rounded-elements) outline-0 rounded-[15px] px-2 py-1 text-[11px] md:text-[14px]" name="" v-model="itemStore.sortPrice">
@@ -63,14 +77,21 @@ const removeFilter = (filter)=>{
                 </div>
                 <div class="text-[14px] text-(--secondary-blurred-text)" v-else>none</div>
             </div>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-5 place-items-center">
-    <div v-for="item in itemStore.sortedItems" :key="item.id" class="flex flex-col relative w-[230px] p-3 gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
-        <div v-if="item.discount && item.discount > 0" class="absolute font-semibold bg-red-600 text-white px-2 py-1 z-1 -left-3 top-5 text-sm rounded-2xl">-{{item.discount}}%</div>
+            <div v-if="displayedItems.length === 0" class="flex justify-center items-center">
+                <div>
+                    No items to show. <a href="https://storyset.com/home">Home illustrations by Storyset</a>
+                    <img src="/Blank canvas-cuate.svg" alt="picture" aria-hidden="true" class="w-90">
+                </div>
+                
+            </div>
+            <div v-else class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5 place-items-center md:place-items-start">
+    <div v-for="item in displayedItems" :key="item.id" class="flex flex-col relative w-[240px] max-h-[372px] gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
+        <div v-if="item.discount && item.discount > 0" class="absolute font-semibold bg-red-600 text-white px-2 py-1 z-1 -left-3 top-3 text-sm rounded-2xl">-{{item.discount}}%</div>
         <RouterLink :to="`/item/${item.id}`" class="flex flex-col relative gap-2">
-            <img class="rounded-[18px] h-50 w-fit mx-auto mb-3" :src="item.img[0]" :alt="item.name">
-            <div class="flex justify-between">
-            <div :class="item.available === 0 ? 'text-(--stock)' : 'text-(--main-text)'" class="flex flex-col gap-2">
-                <p class="font-bold text-[16px] uppercase">{{ item.name }}</p>
+            <img class="rounded-t-[18px] h-70 w-full text-center mx-auto" :src="item.img[0]" :alt="'photo of ' + item.name">
+            <div class="flex justify-between px-3 pb-3">
+            <div :class="item.available === 0 ? 'text-(--stock)' : 'text-(--main-text)'" class="flex flex-col justify-between gap-2">
+                <p class="font-bold text-[16px] uppercase h-[48px] w-37 line-clamp-2">{{ item.name }}</p>
                 <div v-if="item.available !== 0">
             <div v-if="item.categories.color" class="flex flex-row gap-2">
                     <span v-for="color in item.categories.color" class="border-1 border-(--color-border) h-4 w-4 rounded-full" :style="{ backgroundColor: color.split(':')[1] }"></span>
@@ -78,8 +99,8 @@ const removeFilter = (filter)=>{
             </div>
             <div v-else class="text-xs text-(--stock)">Out Of Stock</div>
             </div>
-            <div class="flex flex-col justify-between" v-if="item.available !== 0">
-                    <p v-if="item.discount && item.discount > 0" class="text-sm font-semibold">${{ itemStore.getNewPrice(item.price, item.discount) }}</p>
+            <div class="flex flex-col" v-if="item.available !== 0">
+                    <p v-if="item.discount && item.discount > 0" class="text-sm font-semibold mb-2">${{ itemStore.getNewPrice(item.price, item.discount) }}</p>
                     <p :class="item.discount && item.discount > 0 ? 'line-through text-xs text-(--stock)' : 'text-sm font-semibold'">${{ item.price }}</p>
                 </div>
                 <div v-else>
@@ -88,10 +109,21 @@ const removeFilter = (filter)=>{
             </div>
             
         </RouterLink>
-        <button @click="itemStore.addWish(item.id)" class="rounded-md hover:bg-gray-100 absolute right-3 top-3 cursor-pointer w-6 h-6 flex items-center justify-center">
-            <i :class="itemStore.wishlist.includes(item.id) ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-gray-700'"></i>
+        <button @click="itemStore.addWish(item.id)" class="rounded-md hover:bg-yellow-100/50 bg-gray-100/50 absolute right-3 top-3 cursor-pointer w-6 h-6 flex items-center justify-center">
+            <i :class="itemStore.wishlist.includes(item.id) ? 'fa-solid fa-heart text-red-500' : 'fa-regular fa-heart text-black'"></i>
         </button>
     </div>
+</div>
+<!-- <p v-if="isLoading" class="text-center mt-4">Loading more items...</p>
+  <p v-if="allLoaded" class="text-center mt-4 text-gray-500">No more items to load</p> -->
+<div class="flex justify-center">
+    <button 
+    v-if="visibleItems < itemStore.sortedItems.length" 
+    @click="loadMoreItems" 
+    class="px-4 py-2 bg-yellow-500 text-black rounded mt-4 w-32 cursor-pointer"
+  >
+    Load More
+  </button>
 </div>
           
         </div>

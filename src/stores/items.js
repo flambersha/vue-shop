@@ -49,7 +49,7 @@ export const useItemStore = defineStore("items", () => {
     },
     {
       id:4,
-      name: "White Top",
+      name: "White Top With a nice print on the",
       desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel magna at neque dapibus eleifend. Donec pulvinar congue molestie. Nunc eget nibh id nulla consequat malesuada. Sed massa dolor, tincidunt porttitor risus ornare, vestibulum tempor magna. Donec nec leo orci. Sed suscipit tincidunt aliquam. Donec sed cursus mi, interdum commodo lacus. Aenean dui nunc, condimentum tristique porta nec, tristique in ex. Aenean tristique a nibh nec ultrices. Nullam convallis eros a orci viverra vulputate.',
       img:'',
       available: 0,
@@ -57,6 +57,81 @@ export const useItemStore = defineStore("items", () => {
       discount:0,
       categories: {
         women: ["tops"],
+        color: ["white:#fff"],
+        size: ["S", "M", "L"],
+
+      },
+    },
+    {
+      id:5,
+      name: "Tennis longsleave",
+      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel magna at neque dapibus eleifend. Donec pulvinar congue molestie. Nunc eget nibh id nulla consequat malesuada. Sed massa dolor, tincidunt porttitor risus ornare, vestibulum tempor magna. Donec nec leo orci. Sed suscipit tincidunt aliquam. Donec sed cursus mi, interdum commodo lacus. Aenean dui nunc, condimentum tristique porta nec, tristique in ex. Aenean tristique a nibh nec ultrices. Nullam convallis eros a orci viverra vulputate.',
+      img:'',
+      available: 4,
+      price: 23.93,
+      discount:0,
+      categories: {
+        women: ["longsleeves"],
+        color: ["white:#fff"],
+        size: ["S", "M", "L", "XL"],
+
+      },
+    },
+    {
+      id:6,
+      name: "Light Skirt",
+      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel magna at neque dapibus eleifend. Donec pulvinar congue molestie. Nunc eget nibh id nulla consequat malesuada. Sed massa dolor, tincidunt porttitor risus ornare, vestibulum tempor magna. Donec nec leo orci. Sed suscipit tincidunt aliquam. Donec sed cursus mi, interdum commodo lacus. Aenean dui nunc, condimentum tristique porta nec, tristique in ex. Aenean tristique a nibh nec ultrices. Nullam convallis eros a orci viverra vulputate.',
+      img:'',
+      available: 3,
+      price: 18.93,
+      discount:0,
+      categories: {
+        women: ["skirts"],
+        color: ["white:#fff"],
+        size: ["M", "L", "XL"],
+
+      },
+    },
+    {
+      id:7,
+      name: "Summer T-Shirt",
+      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel magna at neque dapibus eleifend. Donec pulvinar congue molestie. Nunc eget nibh id nulla consequat malesuada. Sed massa dolor, tincidunt porttitor risus ornare, vestibulum tempor magna. Donec nec leo orci. Sed suscipit tincidunt aliquam. Donec sed cursus mi, interdum commodo lacus. Aenean dui nunc, condimentum tristique porta nec, tristique in ex. Aenean tristique a nibh nec ultrices. Nullam convallis eros a orci viverra vulputate.',
+      img:'',
+      available: 5,
+      price: 18.93,
+      discount:0,
+      categories: {
+        kids: ["t-shirts"],
+        color: ["white:#fff"],
+        size: ["S", "L"],
+
+      },
+    },
+    {
+      id:8,
+      name: "Navy Shorts",
+      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel magna at neque dapibus eleifend. Donec pulvinar congue molestie. Nunc eget nibh id nulla consequat malesuada. Sed massa dolor, tincidunt porttitor risus ornare, vestibulum tempor magna. Donec nec leo orci. Sed suscipit tincidunt aliquam. Donec sed cursus mi, interdum commodo lacus. Aenean dui nunc, condimentum tristique porta nec, tristique in ex. Aenean tristique a nibh nec ultrices. Nullam convallis eros a orci viverra vulputate.',
+      img:'',
+      available: 2,
+      price: 18.93,
+      discount:10,
+      categories: {
+        kids: ["shorts"],
+        color: ["white:#fff"],
+        size: ["S", "M", "L"],
+
+      },
+    },
+    {
+      id:9,
+      name: "Navy Shorts New",
+      desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel magna at neque dapibus eleifend. Donec pulvinar congue molestie. Nunc eget nibh id nulla consequat malesuada. Sed massa dolor, tincidunt porttitor risus ornare, vestibulum tempor magna. Donec nec leo orci. Sed suscipit tincidunt aliquam. Donec sed cursus mi, interdum commodo lacus. Aenean dui nunc, condimentum tristique porta nec, tristique in ex. Aenean tristique a nibh nec ultrices. Nullam convallis eros a orci viverra vulputate.',
+      img:'',
+      available: 2,
+      price: 18.93,
+      discount:0,
+      categories: {
+        kids: ["shorts"],
         color: ["white:#fff"],
         size: ["S", "M", "L"],
 

@@ -1,6 +1,6 @@
 <script setup>
 import { useItemStore } from '@/stores/items';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
     const itemStore = useItemStore();
 
     defineProps({
