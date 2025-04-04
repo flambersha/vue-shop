@@ -1,12 +1,13 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useItemStore } from '@/stores/items';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import CategoryCheckBox from '@/components/CategoryCheckBox.vue';
 const itemStore = useItemStore();
 
 const route = useRoute();
-const searchTerm = ref(route.query.result || null);
+const router = useRouter();
+const searchQuery = ref(route.query.result || null);
 
 const removeFilter = (filter)=>{
     const index = itemStore.selectedFilters.findIndex(f => f.split(':')[0] == filter.split(":")[0] && f.split(':')[1] == filter.split(":")[1]);
@@ -15,11 +16,21 @@ const removeFilter = (filter)=>{
     itemStore.selectedFilters.splice(index,1);
 }
 
-const itemsPerLoad = 8;
+const itemsPerLoad = 4;
 const visibleItems = ref(itemsPerLoad); // Number of items displayed
 
 // Get visible items based on count
 const displayedItems = computed(() => itemStore.sortedItems.slice(0, visibleItems.value));
+
+// const displayedItems = computed(() => {
+//   if (searchQuery.value) {
+//     itemStore.sortedItems = itemStore.sortedItems.filter(item =>
+//       item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+//     );
+//   }
+
+//   return itemStore.sortedItems.slice(0, visibleItems.value);
+// });
 
 const loadMoreItems = () => {
   if (visibleItems.value < itemStore.sortedItems.length) {
@@ -27,10 +38,15 @@ const loadMoreItems = () => {
   }
 };
 
+
+watch(() => route.query.result, (newQuery) => {
+  searchQuery.value = newQuery || "";
+});
+
 </script>
 <template>
     <div class="flex gap-4 pt-[115px]">
-        <div class="hidden lg:flex lg:flex-col border-1 border-gray-200 shadow-sm rounded-md p-4 w-67 gap-3 ">
+        <div class="hidden lg:flex lg:flex-col border-1 border-gray-200 shadow-sm rounded-md p-4 w-67 gap-3 max-h-[650px] overflow-y-auto">
             <p class="font-semibold text-[18px] tracking-wide">Filter items</p>
             <!-- <div class="flex flex-col items-center justify-center border-1 border-yellow-500 gap-3 text-[12px]">
                 <div class="w-fit">
@@ -56,8 +72,11 @@ const loadMoreItems = () => {
                 :category="category"
                 :items="values"/>
         </div>
-        <div class="flex flex-col w-full md:pt-4 md:pl-4">
-            <div v-show="searchTerm">lalalalal</div>
+        <div class="flex flex-col w-full md:pl-4">
+            <div v-show="searchQuery" class="text-sm mb-3">
+                Search results for: <strong>{{ searchQuery }}</strong>
+                <button @click="router.push('/catalog')" class="ml-2 px-3 py-1 rounded-md text-red-500 cursor-pointer hover:bg-gray-100/20">Clear Search</button>
+            </div>
             <div class="flex flex-col gap-3 md:flex-row justify-between">
                 <p>Showing <strong>{{displayedItems.length}}</strong> results of <strong>{{itemStore.products.length}}</strong></p>
                 <div class="flex gap-3 items-center">
@@ -84,8 +103,8 @@ const loadMoreItems = () => {
                 </div>
                 
             </div>
-            <div v-else class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5 place-items-center md:place-items-start">
-    <div v-for="item in displayedItems" :key="item.id" class="flex flex-col relative w-[240px] max-h-[372px] gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
+            <div v-else class="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-5 place-items-center md:place-items-start max-h-[750px] overflow-y-auto">
+    <div v-for="item in displayedItems" :key="item.id" class="flex flex-col relative w-[230px] max-h-[372px] gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
         <div v-if="item.discount && item.discount > 0" class="absolute font-semibold bg-red-600 text-white px-2 py-1 z-1 -left-3 top-3 text-sm rounded-2xl">-{{item.discount}}%</div>
         <RouterLink :to="`/item/${item.id}`" class="flex flex-col relative gap-2">
             <img class="rounded-t-[18px] h-70 w-full text-center mx-auto" :src="item.img[0]" :alt="'photo of ' + item.name">

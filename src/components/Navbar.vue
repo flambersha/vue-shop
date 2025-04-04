@@ -49,7 +49,6 @@ onMounted(()=>{
 });
 
 //cart
-const quantity = ref(1);
 const isCartOpen = ref(false);
 const toggleCart = () => {
   isCartOpen.value = !isCartOpen.value;
