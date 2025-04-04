@@ -9,8 +9,7 @@
       </p>
       <p class="text-(--link-text)">
         Go and choose your best look<br />
-        People illustrations by <a class="underline underline-(--link-text)" href="https://storyset.com/people">Storyset</a>
-        Online illustrations by <a href="https://storyset.com/online">Storyset</a>
+        People, online illustrations by <a class="underline underline-(--link-text)" href="https://storyset.com/people">Storyset</a>
       </p>
       <RouterLink to="/catalog" class="text-[16px] border-2 border-(--button-bg) bg-black text-white rounded-[7px] px-4 py-2 md:px-5 md:py-3 text-center">
         Explore now

@@ -16,7 +16,7 @@ wishes.value = itemStore.products.filter(product => itemStore.wishlist.includes(
             </div>
         </form> -->
         
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5 place-items-center md:place-items-start">
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-5 place-items-center md:place-items-start md:h-120 md:overflow-y-auto">
         <div v-for="wish in wishes" :key="wish.id" class="flex flex-col relative w-[240px] max-h-[372px] gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
             <RouterLink :to="`/item/${wish.id}`" class="flex flex-col relative gap-2">
                 <div v-if="wish.discount && wish.discount > 0" class="absolute font-semibold bg-red-600 text-white px-2 py-1 z-1 -left-3 top-3 text-sm rounded-2xl">-{{wish.discount}}%</div>

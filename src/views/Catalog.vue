@@ -16,7 +16,7 @@ const removeFilter = (filter)=>{
     itemStore.selectedFilters.splice(index,1);
 }
 
-const itemsPerLoad = 4;
+const itemsPerLoad = 8;
 const visibleItems = ref(itemsPerLoad); // Number of items displayed
 
 // Get visible items based on count
@@ -46,7 +46,7 @@ watch(() => route.query.result, (newQuery) => {
 </script>
 <template>
     <div class="flex gap-4 pt-[115px]">
-        <div class="hidden lg:flex lg:flex-col border-1 border-gray-200 shadow-sm rounded-md p-4 w-67 gap-3 max-h-[650px] overflow-y-auto">
+        <div class="hidden lg:flex lg:flex-col border-1 border-gray-200 shadow-sm rounded-md p-4 w-67 gap-3 md:max-h-[650px] md:overflow-y-auto">
             <p class="font-semibold text-[18px] tracking-wide">Filter items</p>
             <!-- <div class="flex flex-col items-center justify-center border-1 border-yellow-500 gap-3 text-[12px]">
                 <div class="w-fit">
@@ -97,13 +97,14 @@ watch(() => route.query.result, (newQuery) => {
                 <div class="text-[14px] text-(--secondary-blurred-text)" v-else>none</div>
             </div>
             <div v-if="displayedItems.length === 0" class="flex justify-center items-center">
-                <div>
-                    No items to show. <a href="https://storyset.com/home">Home illustrations by Storyset</a>
+                <div class="text-center">
+                    No items to show.
                     <img src="/Blank canvas-cuate.svg" alt="picture" aria-hidden="true" class="w-90">
+                    <a href="https://storyset.com/home">Home illustrations by Storyset</a>
                 </div>
                 
             </div>
-            <div v-else class="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-5 place-items-center md:place-items-start max-h-[750px] overflow-y-auto">
+            <div v-else class="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-5 place-items-center md:place-items-start md:max-h-[750px] md:overflow-y-auto">
     <div v-for="item in displayedItems" :key="item.id" class="flex flex-col relative w-[230px] max-h-[372px] gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
         <div v-if="item.discount && item.discount > 0" class="absolute font-semibold bg-red-600 text-white px-2 py-1 z-1 -left-3 top-3 text-sm rounded-2xl">-{{item.discount}}%</div>
         <RouterLink :to="`/item/${item.id}`" class="flex flex-col relative gap-2">

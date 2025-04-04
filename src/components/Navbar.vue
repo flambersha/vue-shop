@@ -81,9 +81,9 @@ onBeforeUnmount(() => {
         <div class="flex items-center">
     <!-- Visible on all screens except md -->
     <div class="hidden md:hidden lg:flex lg:gap-8 lg:items-center text-[15px]">
-        <RouterLink :to="`/catalog`" class="hover:text-yellow-500 transition duration-200 border-b-2 border-b-transparent" active-class="border-b-2 border-b-yellow-400">Catalog</RouterLink>
-        <RouterLink :to="`/about`" class="hover:text-yellow-500 transition duration-200 border-b-2 border-b-transparent" active-class="border-b-2 border-b-yellow-400">About</RouterLink>
-        <RouterLink :to="`/contacts`" class="hover:text-yellow-500 transition duration-200 border-b-2 border-b-transparent" active-class="border-b-2 border-b-yellow-400">Contacts</RouterLink>
+        <RouterLink to="/catalog" class="hover:text-yellow-500 transition duration-200 border-b-2 border-b-transparent" active-class="border-b-2 border-b-yellow-400">Catalog</RouterLink>
+        <RouterLink to="/about" class="hover:text-yellow-500 transition duration-200 border-b-2 border-b-transparent" active-class="border-b-2 border-b-yellow-400">About</RouterLink>
+        <RouterLink to="/contacts" class="hover:text-yellow-500 transition duration-200 border-b-2 border-b-transparent" active-class="border-b-2 border-b-yellow-400">Contacts</RouterLink>
     </div>
     
     <!-- dropdown visible only on md screens -->
@@ -99,9 +99,9 @@ onBeforeUnmount(() => {
 
         <div v-show="isMenuOpen" ref="menuDropdown" class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-(--cart-bg) shadow-lg focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
             <div class="py-1 border-2 border-(--color-border) rounded-md" role="none" >
-                <RouterLink :to="`/catalog`" @click="isMenuOpen = !isMenuOpen" class="block px-4 py-2 text-sm text-(--main-text)" role="menuitem" tabindex="-1" id="menu-item-0">Catalog</RouterLink>
-                <RouterLink :to="`/about`" @click="isMenuOpen = !isMenuOpen" class="block px-4 py-2 text-sm text-(--main-text)" role="menuitem" tabindex="-1" id="menu-item-1">About</RouterLink>
-                <RouterLink :to="`/contacts`" @click="isMenuOpen = !isMenuOpen" class="block px-4 py-2 text-sm text-(--main-text)" role="menuitem" tabindex="-1" id="menu-item-2">Contacts</RouterLink>
+                <RouterLink to="/catalog" @click="isMenuOpen = !isMenuOpen" class="block px-4 py-2 text-sm text-(--main-text)" role="menuitem" tabindex="-1" id="menu-item-0">Catalog</RouterLink>
+                <RouterLink to="/about" @click="isMenuOpen = !isMenuOpen" class="block px-4 py-2 text-sm text-(--main-text)" role="menuitem" tabindex="-1" id="menu-item-1">About</RouterLink>
+                <RouterLink to="/contacts" @click="isMenuOpen = !isMenuOpen" class="block px-4 py-2 text-sm text-(--main-text)" role="menuitem" tabindex="-1" id="menu-item-2">Contacts</RouterLink>
             </div>
         </div>
     </div>
@@ -119,14 +119,14 @@ onBeforeUnmount(() => {
         
             </div>
            
-            <RouterLink to="account"><i class="fa-regular fa-user"></i> <span class="sr-only">Account</span></RouterLink>
+            <RouterLink to="/user/data"><i class="fa-regular fa-user"></i> <span class="sr-only">Account</span></RouterLink>
         </div>
         </div>
 
         <!-- toggle btn -->
         <div class="md:hidden flex justify-between text-[15px]">
             <div class="flex items-center">
-                <RouterLink :to="`/`">
+                <RouterLink to="/">
             Logo
         </RouterLink>
         </div>
@@ -141,9 +141,9 @@ onBeforeUnmount(() => {
          <div v-show="isOpen" class="md:hidden flex flex-col right-0 bg-(--cart-bg) w-60 absolute z-13 p-3 gap-4">
             <RouterLink class=" text-center py-2 px-4 border-1 border-(--color-border) rounded-2xl" @click="isOpen = !isOpen" :to="`/catalog`">Catalog</RouterLink>
             <div @click="toggleCart">Cart {{ itemsStore.cartValues.length }}</div>
-            <RouterLink :to="`/account`"  @click="isOpen = !isOpen" >Account</RouterLink>
-            <RouterLink :to="`/about`"  @click="isOpen = !isOpen">About</RouterLink>
-            <RouterLink :to="`/contacts`" @click="isOpen = !isOpen">Contacts</RouterLink>
+            <RouterLink to="/user/data"  @click="isOpen = !isOpen" >Account</RouterLink>
+            <RouterLink to="/about"  @click="isOpen = !isOpen">About</RouterLink>
+            <RouterLink to="/contacts" @click="isOpen = !isOpen">Contacts</RouterLink>
          </div>
     </nav>
 </header>

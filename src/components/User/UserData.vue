@@ -15,7 +15,7 @@ const formData = ref({
 });
 </script>
 <template>
-  <div class="pl-0 md:pl-5 flex">
+  <div class="pl-0 md:pl-5 flex flex-col">
     <form @submit.prevent="submitForm">
       <div class="flex flex-col gap-2">
         <div class="flex flex-col md:flex-row gap-4">

@@ -1,6 +1,6 @@
 <script setup></script>
 <template>
-<div class="flex justify-center items-center w-full h-full" >
+<div class="flex justify-center items-center w-full min-h-screen" >
 <form action="" class="flex flex-col gap-6 rounded-[15px] border-2 border-yellow-400 p-8 md:p-13 justify-center items-center">
     <h1 class="uppercase font-bold text-[30px] text-center">Password reset</h1>
     
