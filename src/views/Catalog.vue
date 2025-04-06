@@ -9,6 +9,10 @@ const route = useRoute();
 const router = useRouter();
 const searchQuery = ref(route.query.result || null);
 
+//variables for displaying sliced items
+const itemsPerPage = 8;
+const currentPage = ref(1);
+
 const removeFilter = (filter)=>{
     const index = itemStore.selectedFilters.findIndex(f => f.split(':')[0] == filter.split(":")[0] && f.split(':')[1] == filter.split(":")[1]);
     
@@ -16,33 +20,31 @@ const removeFilter = (filter)=>{
     itemStore.selectedFilters.splice(index,1);
 }
 
-const itemsPerLoad = 8;
-const visibleItems = ref(itemsPerLoad); // Number of items displayed
-
-// Get visible items based on count
-const displayedItems = computed(() => itemStore.sortedItems.slice(0, visibleItems.value));
-
-// const displayedItems = computed(() => {
-//   if (searchQuery.value) {
-//     itemStore.sortedItems = itemStore.sortedItems.filter(item =>
-//       item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-//     );
-//   }
-
-//   return itemStore.sortedItems.slice(0, visibleItems.value);
-// });
-
-const loadMoreItems = () => {
-  if (visibleItems.value < itemStore.sortedItems.length) {
-    visibleItems.value += itemsPerLoad;
-  }
-};
-
-
-watch(() => route.query.result, (newQuery) => {
-  searchQuery.value = newQuery || "";
+const filtItems = computed(()=>{
+    if(!searchQuery.value) return itemStore.sortedItems;
+    return itemStore.sortedItems.filter(item => item.name.toLowerCase().includes(searchQuery.value.toLowerCase()));
 });
 
+const paginatedItems = computed(()=>{
+    const start = (currentPage.value - 1) * itemsPerPage;
+    return filtItems.value.slice(start, start + itemsPerPage);
+})
+
+const totalPages = computed(()=>Math.ceil(filtItems.value.length / itemsPerPage));
+
+const nextPage = () => {
+    if(currentPage.value < totalPages.value)currentPage.value++;
+}
+
+const prevPage = () => {
+    if(currentPage.value > 1) currentPage.value--;
+}
+
+
+watch(() => route.query.result, (newQuery)=>{
+    searchQuery.value = newQuery || "";
+    currentPage.value = 1;
+})
 </script>
 <template>
     <div class="flex gap-4 pt-[115px]">
@@ -78,7 +80,7 @@ watch(() => route.query.result, (newQuery) => {
                 <button @click="router.push('/catalog')" class="ml-2 px-3 py-1 rounded-md text-red-500 cursor-pointer hover:bg-gray-100/20">Clear Search</button>
             </div>
             <div class="flex flex-col gap-3 md:flex-row justify-between">
-                <p>Showing <strong>{{displayedItems.length}}</strong> results of <strong>{{itemStore.products.length}}</strong></p>
+                <p>Showing <strong>{{paginatedItems.length}}</strong> results of <strong>{{itemStore.products.length}}</strong></p>
                 <div class="flex gap-3 items-center">
                     <label for="">Sort by:</label>
                     <select class="bg-(--rounded-elements) outline-0 rounded-[15px] px-2 py-1 text-[11px] md:text-[14px]" name="" v-model="itemStore.sortPrice">
@@ -96,7 +98,7 @@ watch(() => route.query.result, (newQuery) => {
                 </div>
                 <div class="text-[14px] text-(--secondary-blurred-text)" v-else>none</div>
             </div>
-            <div v-if="displayedItems.length === 0" class="flex justify-center items-center">
+            <div v-if="paginatedItems.length === 0" class="flex justify-center items-center mt-5">
                 <div class="text-center">
                     No items to show.
                     <img src="/Blank canvas-cuate.svg" alt="picture" aria-hidden="true" class="w-90">
@@ -104,8 +106,8 @@ watch(() => route.query.result, (newQuery) => {
                 </div>
                 
             </div>
-            <div v-else class="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-5 place-items-center md:place-items-start md:max-h-[750px] md:overflow-y-auto">
-    <div v-for="item in displayedItems" :key="item.id" class="flex flex-col relative w-[230px] max-h-[372px] gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
+            <div v-else class="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-5 place-items-center md:place-items-start ">
+    <div v-for="item in paginatedItems" :key="item.id" class="flex flex-col relative w-[230px] max-h-[372px] gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
         <div v-if="item.discount && item.discount > 0" class="absolute font-semibold bg-red-600 text-white px-2 py-1 z-1 -left-3 top-3 text-sm rounded-2xl">-{{item.discount}}%</div>
         <RouterLink :to="`/item/${item.id}`" class="flex flex-col relative gap-2">
             <img class="rounded-t-[18px] h-70 w-full text-center mx-auto" :src="item.img[0]" :alt="'photo of ' + item.name">
@@ -134,16 +136,11 @@ watch(() => route.query.result, (newQuery) => {
         </button>
     </div>
 </div>
-<!-- <p v-if="isLoading" class="text-center mt-4">Loading more items...</p>
-  <p v-if="allLoaded" class="text-center mt-4 text-gray-500">No more items to load</p> -->
-<div class="flex justify-center">
-    <button 
-    v-if="visibleItems < itemStore.sortedItems.length" 
-    @click="loadMoreItems" 
-    class="px-4 py-2 bg-yellow-500 text-black rounded mt-4 w-32 cursor-pointer"
-  >
-    Load More
-  </button>
+
+<div v-show="paginatedItems.length !== 0" class="flex justify-center items-center gap-4 mt-4">
+    <button @click="prevPage" class="px-3 py-1 bg-yellow-400 text-black rounded-md cursor-pointer disabled:opacity-50" :disabled="currentPage === 1"><i class="fa-solid fa-backward"></i></button>
+   <span>{{ currentPage }} of {{ totalPages }}</span>
+   <button @click="nextPage" class="px-3 py-1 bg-yellow-400 text-black rounded-md cursor-pointer disabled:opacity-50" :disabled="currentPage === totalPages"><i class="fa-solid fa-forward"></i></button>
 </div>
           
         </div>
