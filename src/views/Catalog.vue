@@ -80,7 +80,7 @@ watch(() => route.query.result, (newQuery)=>{
                 <button @click="router.push('/catalog')" class="ml-2 px-3 py-1 rounded-md text-red-500 cursor-pointer hover:bg-gray-100/20">Clear Search</button>
             </div>
             <div class="flex flex-col gap-3 md:flex-row justify-between">
-                <p>Showing <strong>{{paginatedItems.length}}</strong> results of <strong>{{itemStore.products.length}}</strong></p>
+                <p>Showing <strong>{{paginatedItems.length}}</strong> results of <strong>{{filtItems.length}}</strong></p>
                 <div class="flex gap-3 items-center">
                     <label for="">Sort by:</label>
                     <select class="bg-(--rounded-elements) outline-0 rounded-[15px] px-2 py-1 text-[11px] md:text-[14px]" name="" v-model="itemStore.sortPrice">

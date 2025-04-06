@@ -228,10 +228,6 @@ const getNewPrice = (oldPrice, discount) =>{
   return (oldPrice * discountValue).toFixed(2);
 }
 
-//navbar search field
-
-
-
   return {
     categories,
     products,
