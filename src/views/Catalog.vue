@@ -9,6 +9,8 @@ const route = useRoute();
 const router = useRouter();
 const searchQuery = ref(route.query.result || null);
 
+const showFilteringModal = ref(false);
+
 //variables for displaying sliced items
 const itemsPerPage = 8;
 const currentPage = ref(1);
@@ -48,26 +50,8 @@ watch(() => route.query.result, (newQuery)=>{
 </script>
 <template>
     <div class="flex gap-4 pt-[115px]">
-        <div class="hidden lg:flex lg:flex-col border-1 border-gray-200 shadow-sm rounded-md p-4 w-67 gap-3 md:max-h-[650px] md:overflow-y-auto">
+        <div class="hidden lg:flex lg:flex-col border-1 border-gray-200 shadow-sm rounded-md p-4 w-75 gap-3 md:max-h-[655px] overflow-y-auto">
             <p class="font-semibold text-[18px] tracking-wide">Filter items</p>
-            <!-- <div class="flex flex-col items-center justify-center border-1 border-yellow-500 gap-3 text-[12px]">
-                <div class="w-fit">
-                    <input type="range" name="" id="">
-                </div>
-                <div class="flex gap-2">
-                    <div class="bg-gray-50 rounded-md px-3">
-                        <label for="">From</label>
-                        <input type="text" class="w-13 border-1 border-black rounded-sm">
-                    </div>
-                    <div class="bg-gray-50 rounded-md px-3 ">
-                        <label for="">To</label>
-                        <input type="text" class="w-13 border-1 border-black rounded-sm">
-                    </div>
-                </div>
-                <div class="w-fit">
-                    <button type="submit" class="cursor-pointer px-3 py-1 bg-yellow-400 rounded-[15px]">Apply</button>
-                </div>
-            </div> -->
             <CategoryCheckBox
                 v-for="(values, category) in itemStore.sortedCategories"
                 :key="category"
@@ -91,13 +75,37 @@ watch(() => route.query.result, (newQuery)=>{
               
                 </div>
             </div>
-            <div class="flex mt-6 gap-2 items-center mb-3 min-h-[40px]">
+            <div class="flex flex-wrap mt-6 gap-2 items-center mb-3 min-h-[40px]">
+                <button class="flex items-center lg:hidden px-4 py-2 bg-yellow-400 text-black rounded-md mb-3 mr-2"  @click="showFilteringModal = true"
+>
+<i class="fa-solid fa-filter mr-3"></i> Filter</button>
+
+
                 <div class="text-[14px] whitespace-nowrap text-(--secondary-text)">Applied filters:</div> 
                 <div v-if="itemStore.selectedFilters.length > 0" class="flex gap-2 flex-wrap">
                     <button v-for="filter in itemStore.selectedFilters" @click="removeFilter(filter)" class="hover:bg-yellow-100/50 rounded-full border-2 border-yellow-400 px-3 py-1 cursor-pointer text-[15px]">{{ filter.replace(':', ' ') }}  <i class="fa-solid fa-xmark text-[11px] pl-[5px]"></i></button>
                 </div>
                 <div class="text-[14px] text-(--secondary-blurred-text)" v-else>none</div>
             </div>
+            <div v-if="showFilteringModal" class="fixed inset-0 z-50 bg-(--bg) text-(--main-text) p-4 flex flex-col items-center"
+  >
+    
+    <button
+      class="self-end text-(--main-text) text-2xl mb-4"
+      @click="showFilteringModal=false"
+    >
+      &times;
+    </button>
+
+    <div class="flex flex-col lg:hidden rounded-md p-4 w-full md:w-67 gap-3">
+            <p class="font-semibold text-[23px] tracking-wide">Filter items</p>
+            <CategoryCheckBox
+                v-for="(values, category) in itemStore.sortedCategories"
+                :key="category"
+                :category="category"
+                :items="values"/>
+        </div>
+  </div>
             <div v-if="paginatedItems.length === 0" class="flex justify-center items-center mt-5">
                 <div class="text-center">
                     No items to show.
@@ -106,7 +114,7 @@ watch(() => route.query.result, (newQuery)=>{
                 </div>
                 
             </div>
-            <div v-else class="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-5 place-items-center md:place-items-start ">
+            <div v-else class="grid grid-cols-[repeat(auto-fill,minmax(230px,1fr))] gap-5 place-items-center lg:place-items-start ">
     <div v-for="item in paginatedItems" :key="item.id" class="flex flex-col relative w-[230px] max-h-[372px] gap-3 rounded-[18px] bg-(--card-bg) hover:bg-(--card-hover) transition duration-300">
         <div v-if="item.discount && item.discount > 0" class="absolute font-semibold bg-red-600 text-white px-2 py-1 z-1 -left-3 top-3 text-sm rounded-2xl">-{{item.discount}}%</div>
         <RouterLink :to="`/item/${item.id}`" class="flex flex-col relative gap-2">

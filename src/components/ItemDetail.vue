@@ -36,7 +36,6 @@ const displayableCategories = computed(() => {
     if(!itemsStore.hiddenCategories.includes(category))
       result[category] = value;
   }
-
   return result;
 })
 
@@ -84,7 +83,6 @@ function closeModal() {
         <div>
           <h3 class="font-semibold">Description</h3>
         <p class="text-[15px]">{{ foundItem.desc }}</p>
-        <RouterLink :to="`/user/data`" >go to user data</RouterLink>
         </div>
        
         <div v-for="(values, categoryName) in displayableCategories" :key="categoryName" class="flex flex-col mb-4">
@@ -108,11 +106,11 @@ function closeModal() {
     </button>
   </div>
 </div>
-<div class="flex h-10 gap-3 items-center">
+<div class="flex flex-col md:flex-row h-10 gap-3 items-center mb-20 md:mb-0">
   <button v-if="foundItem.available > 0" @click="itemsStore.addToCart(foundItem, selectedOptions, 1)" class= "py-2 border-1 border-(--button-bg) bg-black text-white shadow-lg rounded-[7px] px-7 text-center w-48 cursor-pointer">Add To Cart</button>
-  <button v-if="foundItem.available > 0" @click="showModal" class="py-2 bg-white text-black shadow-lg rounded-[7px] text-center w-32 cursor-pointer border-2 border-(--button-bg)">Buy now</button>
-  <p class="text-sm" v-if="foundItem.available > 0">{{ foundItem.available }} items in stock</p>
-  <p class="text-sm" v-else>No items available for now</p>
+  <button v-if="foundItem.available > 0" @click="showModal" class="py-2 px-2 bg-white text-black shadow-lg rounded-[7px] text-center w-32 cursor-pointer border-2 border-(--button-bg)">Buy now</button>
+  <p class="text-sm" v-if="foundItem.available > 0"><i class="fa-solid fa-circle-check text-emerald-500 mr-1"></i> {{ foundItem.available }} items in stock</p>
+  <p class="text-sm" v-else><i class="fa-solid fa-circle-exclamation text-red-300 mr-1"></i> No items available for now</p>
 </div>
 
 <BuyNowModal
