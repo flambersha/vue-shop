@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { useAlert } from '@/stores/alerts';
 
 export const useItemStore = defineStore("items", () => {
   const products = ref([
@@ -139,12 +140,20 @@ export const useItemStore = defineStore("items", () => {
     },
   ]);
 
+  const alertStore = useAlert();
+
   //wishlist
   const wishlist = ref([]);
   const addWish = (id)=>{
-    if (wishlist.value.includes(id))
-       wishlist.value = wishlist.value.filter(i => i !== id)
-    else wishlist.value.push(id);
+    if (wishlist.value.includes(id)){
+      wishlist.value = wishlist.value.filter(i => i !== id)
+      alertStore.triggerAlert("Removed from wishlist");
+    }
+    else{
+      wishlist.value.push(id);
+      alertStore.triggerAlert("Added to wishlist");
+    }
+    
 }
 
   const categories = computed(() => { //only for front end
@@ -196,11 +205,14 @@ export const useItemStore = defineStore("items", () => {
   const cartValues = ref([]);
   const addToCart = (foundItem, options, quantity) =>{
     cartValues.value.push([foundItem, options, quantity]);
+    alertStore.triggerAlert("Added to cart");
   }
   const removeFromCart = (id) => {
     const index = cartValues.value.findIndex(f=>f[0].id === id);
-    if (index > -1)
+    if (index > -1){
       cartValues.value.splice(index, 1);
+      alertStore.triggerAlert("Removed from cart");
+    }
   }
 
   //admin decides which items are hidden
@@ -242,6 +254,6 @@ const getNewPrice = (oldPrice, discount) =>{
     hiddenCategories,
     sortedCategories,
     removeFromCart,
-    getNewPrice
+    getNewPrice,
   };
 });

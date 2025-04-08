@@ -4,6 +4,8 @@ import { useItemStore } from '@/stores/items';
 import { useOrderStore } from '@/stores/orders';
 import { ref, computed, onMounted } from 'vue';
 import BuyNowModal from './BuyNowModal.vue';
+
+
 const itemsStore = useItemStore();
 const orderStore = useOrderStore();
 const route = useRoute();
@@ -60,9 +62,6 @@ function closeModal() {
 
 </script>
 <template>
-       <!-- <div class="bg-green-100 border-1 border-green-500 text-green-700 px-4 py-3 w-64 rounded-xl" role="alert">
-  <p class="font-bold">Wishlist modified</p>
-</div> -->
     <div class="flex flex-col md:flex-row gap-5 w-full pt-[115px]">
       <div class="w-full md:w-1/2 bg-yellow-100 flex items-center justify-center">
         <img :src="foundItem.img[0]" :alt="foundItem.name" class="h-80 w-70">
