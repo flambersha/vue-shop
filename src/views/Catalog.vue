@@ -22,11 +22,13 @@ const removeFilter = (filter)=>{
     itemStore.selectedFilters.splice(index,1);
 }
 
+//filtering items that match the search query
 const filtItems = computed(()=>{
     if(!searchQuery.value) return itemStore.sortedItems;
     return itemStore.sortedItems.filter(item => item.name.toLowerCase().includes(searchQuery.value.toLowerCase()));
 });
 
+//items pagination
 const paginatedItems = computed(()=>{
     const start = (currentPage.value - 1) * itemsPerPage;
     return filtItems.value.slice(start, start + itemsPerPage);
@@ -34,8 +36,9 @@ const paginatedItems = computed(()=>{
 
 const totalPages = computed(()=>Math.ceil(filtItems.value.length / itemsPerPage));
 
+//pagination buttons
 const nextPage = () => {
-    if(currentPage.value < totalPages.value)currentPage.value++;
+    if(currentPage.value < totalPages.value) currentPage.value++;
 }
 
 const prevPage = () => {
