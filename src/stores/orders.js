@@ -1,7 +1,9 @@
 import { ref, computed, reactive } from "vue";
 import { defineStore } from "pinia";
+import { useAlert } from "./alerts";
 
 export const useOrderStore = defineStore("orders", () => {
+  const alertStore = useAlert();
   const orders = ref([]);
 
   //filtering orders
@@ -30,6 +32,7 @@ export const useOrderStore = defineStore("orders", () => {
       status: 'created'
     });
   orders.value.push(newOrder);
+  alertStore.triggerAlert("Order is created");
   return newOrder.id;
   }
 

@@ -165,20 +165,6 @@ onBeforeUnmount(() => {
       </div>
       
       <div v-else>
-        <!-- <div v-for="(cartItem, index) in itemsStore.cartValues" :key="index">
-          <RouterLink :to="`/item/${cartItem[0].id}`" @click="toggleCart" class="flex flex-wrap w-full justify-between items-center text-center border-2 border-gray-200 rounded-md p-4 text-[12px] md:text-[14px] cursor-pointer mb-2 gap-2">
-             <div> {{ index + 1 }} </div>
-          <img :src="cartItem[0].img[0]" class="h-10 w-10" :alt="'Photo of ' + cartItem[0].name"/>
-          <div class="font-bold">{{ cartItem[0].name }}</div>
-          <div>${{ cartItem[0].price }}</div>
-          
-          <input type="number" min="1" v-model="cartItem[2]" :max="cartItem[0].available" class="rounded-md w-15 outline-yellow-400 border-1 border-yellow-400 px-2 py-1">
-          <button @click="buyFromCart(cartItem[0], cartItem[1], cartItem[2])" class="bg-black text-white border-1 border-amber-400 rounded-[7px] px-2 py-1 text-center cursor-pointer">Buy</button>
-          <div v-if="cartItem[1]" class="flex gap-3 ml-5">
-            <div class="px-2 rounded-xl bg-amber-100" v-for="(value, option) in cartItem[1]">{{ option }} {{ option === 'color' ? value.split(':')[0] : value }}</div>
-          </div>
-        </RouterLink>
-        </div> -->
         <div v-for="(cartItem, index) in itemsStore.cartValues" :key="index" 
      class="flex flex-wrap w-full justify-between items-center text-center border-2 border-gray-200 rounded-md p-4 text-[12px] md:text-[14px] cursor-pointer mb-2 gap-2">
 
@@ -195,7 +181,6 @@ onBeforeUnmount(() => {
     <input type="number" min="1" v-model="cartItem[2]" :max="cartItem[0].available" 
            class="rounded-md w-15 outline-yellow-400 border-1 border-yellow-400 px-2 py-1">
 
-    <!-- Move "Buy" button outside RouterLink -->
     <button @click="buyFromCart(cartItem[0], cartItem[1], cartItem[2])" 
             class="bg-black text-white border-1 border-amber-400 rounded-[7px] px-2 py-1 text-center cursor-pointer">
         Buy
