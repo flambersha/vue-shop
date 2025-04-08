@@ -22,7 +22,7 @@ export const useItemStore = defineStore("items", () => {
       id:2,
       name: "Icy T-shirt",
       desc:'loremp ipsum dolor sit amet',
-      img:'',
+      img:['https://img.freepik.com/free-vector/shopping-clothing-fashion-icon-isolated_18591-82227.jpg?semt=ais_hybrid&w=740', 'https://img.freepik.com/free-vector/shopping-clothing-fashion-icon-isolated_18591-82227.jpg?semt=ais_hybrid&w=740'],
       available: 19,
       price: 15.99,
       discount:0,
@@ -114,7 +114,7 @@ export const useItemStore = defineStore("items", () => {
       desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel magna at neque dapibus eleifend. Donec pulvinar congue molestie. Nunc eget nibh id nulla consequat malesuada. Sed massa dolor, tincidunt porttitor risus ornare, vestibulum tempor magna. Donec nec leo orci. Sed suscipit tincidunt aliquam. Donec sed cursus mi, interdum commodo lacus. Aenean dui nunc, condimentum tristique porta nec, tristique in ex. Aenean tristique a nibh nec ultrices. Nullam convallis eros a orci viverra vulputate.',
       img:'',
       available: 2,
-      price: 18.93,
+      price: 38.75,
       discount:10,
       categories: {
         kids: ["shorts"],
@@ -209,10 +209,8 @@ export const useItemStore = defineStore("items", () => {
   }
   const removeFromCart = (id) => {
     const index = cartValues.value.findIndex(f=>f[0].id === id);
-    if (index > -1){
+    if (index > -1)
       cartValues.value.splice(index, 1);
-      alertStore.triggerAlert("Removed from cart");
-    }
   }
 
   //admin decides which items are hidden

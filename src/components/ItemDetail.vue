@@ -4,6 +4,7 @@ import { useItemStore } from '@/stores/items';
 import { useOrderStore } from '@/stores/orders';
 import { ref, computed, onMounted } from 'vue';
 import BuyNowModal from './BuyNowModal.vue';
+import Carousel from './Carousel.vue';
 
 
 const itemsStore = useItemStore();
@@ -63,9 +64,10 @@ function closeModal() {
 </script>
 <template>
     <div class="flex flex-col md:flex-row gap-5 w-full pt-[115px]">
-      <div class="w-full md:w-1/2 bg-yellow-100 flex items-center justify-center">
+      <Carousel :foundItem="foundItem"></Carousel>
+      <!-- <div class="w-full md:w-1/2 bg-yellow-100 flex items-center justify-center">
         <img :src="foundItem.img[0]" :alt="foundItem.name" class="h-80 w-70">
-      </div>
+      </div> -->
       <div class="w-full md:w-1/2 flex flex-col gap-5">
         <div class="flex justify-between">
             <h1 class="font-bold uppercase text-2xl">{{ foundItem.name }}</h1>

@@ -191,7 +191,7 @@ onBeforeUnmount(() => {
     </button>
 
     <div v-if="cartItem[1]" class="flex gap-3 ml-5">
-        <div class="px-2 rounded-xl bg-amber-100" v-for="(value, option) in cartItem[1]">
+        <div class="px-2 rounded-xl bg-amber-100 text-black" v-for="(value, option) in cartItem[1]">
             {{ option }} {{ option === 'color' ? value.split(':')[0] : value }}
         </div>
     </div>
