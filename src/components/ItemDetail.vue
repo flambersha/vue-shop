@@ -23,12 +23,18 @@ const selectOption = (category, value) => {
 
  //default values for order
 onMounted(() => {
+  const stored = localStorage.getItem(`selOptions-${foundItem.id}`);
+  const storedOptions = stored ? JSON.parse(stored) : null;
   Object.entries(foundItem.categories).forEach(([category, values]) => {
     if(!itemsStore.hiddenCategories.includes(category)){
-      if (values && values.length > 0)
-          selectOption(category, values[0])
+      if (storedOptions?.[category]) {
+        selectOption(category, storedOptions[category]);
+      } else if (values && values.length > 0) {
+        selectOption(category, values[0]);
+      }
   }
-  })
+  });
+  localStorage.removeItem(`selOptions-${foundItem.id}`);
 })
 
 const displayableCategories = computed(() => {

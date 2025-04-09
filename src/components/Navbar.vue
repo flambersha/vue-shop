@@ -50,6 +50,11 @@ onMounted(()=>{
 
 //cart
 const isCartOpen = ref(false);
+const itemClick = (item)=>{
+    localStorage.setItem(`selOptions-${item[0].id}`, JSON.stringify(item[1]));
+    router.push(`/item/${item[0].id}`);
+    toggleCart();
+}
 const toggleCart = () => {
   isCartOpen.value = !isCartOpen.value;
 };
@@ -168,12 +173,12 @@ onBeforeUnmount(() => {
         <div v-for="(cartItem, index) in itemsStore.cartValues" :key="index" 
      class="flex flex-wrap w-full justify-between items-center text-center border-2 border-gray-200 rounded-md p-4 text-[12px] md:text-[14px] cursor-pointer mb-2 gap-2">
 
-    <div @click="toggleCart">
-        <RouterLink :to="`/item/${cartItem[0].id}`" class="flex gap-2 items-center">
+    <div @click="()=>itemClick(cartItem)" class="flex gap-2 items-center">
+       
             <div> {{ index + 1 }} </div>
             <img :src="cartItem[0].img[0]" class="h-10 w-10" :alt="'Photo of ' + cartItem[0].name"/>
             <div class="font-bold">{{ cartItem[0].name }}</div>
-        </RouterLink>
+       
     </div>
 
     <div>${{ cartItem[0].price }}</div>
