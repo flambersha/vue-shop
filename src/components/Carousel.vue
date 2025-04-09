@@ -24,7 +24,7 @@ const prev = () => {
     <div class="w-full md:w-1/2 flex flex-col items-center p-4 relative">
       
       <div class="relative w-80 max-w-md flex items-center justify-center h-98">
-        <img :src="currentImg" :alt="foundItem.name" class="h-full w-full object-contain rounded-lg" />
+        <img :src="currentImg" :alt="foundItem.name" loading="lazy" class="h-full w-full object-contain rounded-lg" />
   
         <button
           @click="prev"
@@ -41,7 +41,7 @@ const prev = () => {
         </button>
       </div>
   
-      <div class="flex gap-2 mt-4 overflow-x-auto max-w-md">
+      <div class="hidden md:flex md:gap-2 mt-4 overflow-x-auto max-w-md">
         <img
           v-for="(img, index) in foundItem.img"
           :key="index"
