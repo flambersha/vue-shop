@@ -114,7 +114,7 @@ function closeModal() {
   </div>
 </div>
 <div class="flex flex-col md:flex-row h-10 gap-3 items-center mb-20 md:mb-0">
-  <button v-if="foundItem.available > 0" @click="itemsStore.addToCart(foundItem, selectedOptions, 1)" class= "py-2 border-1 border-(--button-bg) bg-black text-white shadow-lg rounded-[7px] px-7 text-center w-48 cursor-pointer">Add To Cart</button>
+  <button v-if="foundItem.available > 0" :disabled="itemsStore.cartValues.some(e => e[0].id === foundItem.id)" :title="itemsStore.cartValues.some(e => e[0].id === foundItem.id) ? 'Already added to cart' : 'Add to Cart'" :class="{'opacity-50':itemsStore.cartValues.some(e => e[0].id === foundItem.id)}" @click="itemsStore.addToCart(foundItem, selectedOptions, 1)" class= "py-2 border-1 border-(--button-bg) bg-black text-white shadow-lg rounded-[7px] px-7 text-center w-48 cursor-pointer">Add To Cart</button>
   <button v-if="foundItem.available > 0" @click="showModal" class="py-2 px-2 bg-white text-black shadow-lg rounded-[7px] text-center w-32 cursor-pointer border-2 border-(--button-bg)">Buy now</button>
   <p class="text-sm" v-if="foundItem.available > 0"><i class="fa-solid fa-circle-check text-emerald-500 mr-1"></i> {{ foundItem.available }} items in stock</p>
   <p class="text-sm" v-else><i class="fa-solid fa-circle-exclamation text-red-300 mr-1"></i> No items available for now</p>
